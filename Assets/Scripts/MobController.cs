@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class MobController : MonoBehaviour
 {
-    private PlayerController playerController;
+    // inspector reference
+    public PlayerController playerController;
+
+    // mob attributes
     public int mobHealth;
-    public int mobMaxHealth;
+    [SerializeField] int mobMaxHealth;
     [SerializeField] int mobDamage;
 
-    // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         playerController = GameObject.Find("player").GetComponent<PlayerController>();
 
