@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,12 @@ public class PlayerController : MonoBehaviour
     // boundary references
     private int boundaryRange = 12;
 
+    // object reference for projectile
+    public GameObject projectilePrefab;
+
+    // spawn point for projectile
+    public Transform projectileSpawnPoint;
+
     void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -28,9 +35,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerMove();
+        FireProjectile();
     }
 
-    // enable horizontal motion and constant speed
+    // enable horizontal motion and max speed
     void PlayerMove()
     {
         // initialize player inputs
@@ -68,6 +76,28 @@ public class PlayerController : MonoBehaviour
         if (playerRb.transform.position.x >= boundaryRange)
         {
             playerRb.transform.position = new Vector3(boundaryRange, playerRb.transform.position.y, playerRb.transform.position.z);
+        }
+    }
+
+    // fire a projectile. creates an instance of an object, places it at the players position, points it in the direction of the copied object
+    void FireProjectile()
+    {
+        bool fireInput = Input.GetButtonDown("Fire1");
+
+        if (fireInput)
+        {
+            // get an object from the pool
+            GameObject pooledProjectile = BulletPlayerPooler.SharedInstance.GetPooledObject();
+
+            // if pooled projectile is inactive
+            if (pooledProjectile != null)
+            {
+                // activate it
+                pooledProjectile.SetActive(true);
+
+                // set position and rotation
+                pooledProjectile.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            }
         }
     }
 }
