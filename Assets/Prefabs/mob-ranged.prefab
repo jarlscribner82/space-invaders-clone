@@ -114,3 +114,5 @@ MonoBehaviour:
   mobHealth: 0
   mobMaxHealth: 5
   mobDamage: 1
+  cooldownMin: 1
+  cooldownMax: 4
