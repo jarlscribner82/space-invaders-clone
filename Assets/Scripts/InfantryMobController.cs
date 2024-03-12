@@ -5,21 +5,24 @@ using UnityEngine;
 public class InfantryMobController : MobController
 {
     private Rigidbody infantryRb;
-    [SerializeField] float speed;
+    
+    [SerializeField] float original_Speed;
+    public float speed;
+
 
     // boundary references
     private int boundaryRange = 12;
 
-    protected override void Awake()
+    void Start()
     {
-        base.Awake();
+        speed = original_Speed;
 
         infantryRb = GetComponent<Rigidbody>();
     }
     // Update is called once per frame
     void Update()
     {
-        FollowPlayer();
+        //FollowPlayer();
     }
 
     // enable enemy track and follow for player

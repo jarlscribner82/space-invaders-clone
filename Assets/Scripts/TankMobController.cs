@@ -10,13 +10,8 @@ public class TankMobController : MobController
     // shield state
     [SerializeField] bool shieldActive = true;
 
-    // range for shield cooldown
-    [SerializeField] int cooldownMin;
-    [SerializeField] int cooldownMax;
-
-    protected override void Awake()
+    void Start()
     {
-        base.Awake();
         StartCoroutine(ToggleShieldState());
     }
 
