@@ -7,14 +7,8 @@ public class RangedMobController : MobController
     // firing state
     private bool isFiring = false;
 
-    // range for firing cooldown
-    [SerializeField] int cooldownMin;
-    [SerializeField] int cooldownMax;
-
-    protected override void Awake()
+    void Start()
     {
-        base.Awake();
-
         StartCoroutine(FireInterval());
     }
 
@@ -47,13 +41,13 @@ public class RangedMobController : MobController
     {
         while (true)
         {
-            yield return new WaitForSecondsRealtime(ShieldCooldown());
+            yield return new WaitForSecondsRealtime(Cooldown());
             isFiring = !isFiring;
         }
     }
 
     // generate a random cooldown time for firing
-    int ShieldCooldown()
+    int Cooldown()
     {
         return Random.Range(cooldownMin, cooldownMax);
     }

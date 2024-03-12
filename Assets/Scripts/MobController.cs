@@ -9,12 +9,23 @@ public class MobController : MonoBehaviour
 
     // mob attributes
     public int mobHealth;
-    [SerializeField] int mobMaxHealth;
-    [SerializeField] int mobDamage;
+    public int mobMaxHealth;
 
-    protected virtual void Awake()
+    [SerializeField] int mobOriginalDamage;
+    public int mobDamage;
+
+    // range for cooldown
+    public int cooldownMin;
+    public int cooldownMax;
+
+    // support state
+    public bool isSupported = false;
+
+    void Start()
     {
         playerController = GameObject.Find("player").GetComponent<PlayerController>();
+
+        mobDamage = mobOriginalDamage;
 
         mobHealth = mobMaxHealth;
     }

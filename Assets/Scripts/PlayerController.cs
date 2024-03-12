@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     // spawn point for projectile
     public Transform projectileSpawnPoint;
 
-    void Awake()
+    void Start()
     {
         playerRb = GetComponent<Rigidbody>();
     }

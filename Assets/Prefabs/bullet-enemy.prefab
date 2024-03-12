@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2039368042595496675}
   - component: {fileID: 6400167301122774557}
   - component: {fileID: 8518769858518983368}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bullet-enemy
-  m_TagString: Untagged
+  m_TagString: Mob Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
