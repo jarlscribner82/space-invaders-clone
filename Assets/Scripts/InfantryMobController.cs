@@ -4,24 +4,38 @@ using UnityEngine;
 
 public class InfantryMobController : MobController
 {
+    // allow access to rigid body
     private Rigidbody infantryRb;
     
-    [SerializeField] float original_Speed;
-    public float speed;
-
+    // attributes unique to an infantry mob
+    [SerializeField] float m_Speed;
+    public float Speed
+    {
+        get { return m_Speed; }
+        set { m_Speed = value; }
+    }
 
     // boundary references
     private int boundaryRange = 12;
 
-    void Start()
+    protected override void Awake()
     {
-        speed = original_Speed;
+        base.Awake();
 
+        // allow access to rigid body
         infantryRb = GetComponent<Rigidbody>();
     }
-    // Update is called once per frame
-    void Update()
+
+    protected override void Start()
     {
+        base.Start();
+    }
+
+    // Update is called once per frame
+    protected override void Update()
+    {
+        base.Update();
+
         //FollowPlayer();
     }
 
@@ -32,17 +46,18 @@ public class InfantryMobController : MobController
         Vector3 getDirection = (playerController.transform.position - infantryRb.transform.position).normalized;
 
         // move the enemy towards the player
-        infantryRb.AddForce(getDirection * speed, ForceMode.Impulse);
+        infantryRb.AddForce(getDirection * Speed, ForceMode.Impulse);
 
         // set a max speed
-        if (infantryRb.velocity.magnitude > speed)
+        if (infantryRb.velocity.magnitude > Speed)
         {
-            infantryRb.velocity = infantryRb.velocity.normalized * speed;
+            infantryRb.velocity = infantryRb.velocity.normalized * Speed;
         }
 
         KeepInBounds();
     }
 
+    // keep the mpob in the game field
     void KeepInBounds()
     {
         if (infantryRb.transform.position.x <= -boundaryRange)
@@ -53,5 +68,11 @@ public class InfantryMobController : MobController
         {
             infantryRb.transform.position = new Vector3(boundaryRange, infantryRb.transform.position.y, infantryRb.transform.position.z);
         }
+    }
+
+    // raise speed
+    public void RaiseSpeed()
+    {
+        Speed += 0.1f;
     }
 }

@@ -5,20 +5,24 @@ using UnityEngine;
 public class RangedMobController : MobController
 {
     // firing state
-    private bool isFiring = false;
+    private bool isFiring = true;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         StartCoroutine(FireInterval());
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base .Update();
+
         Fire();
     }
 
-    // fire in one second intervals
+    // fire projectile from a pool when not firing
     void Fire()
     {
         // get an object from the pool
@@ -37,6 +41,7 @@ public class RangedMobController : MobController
         }
     }
 
+    // firing state toggler
     IEnumerator FireInterval()
     {
         while (true)

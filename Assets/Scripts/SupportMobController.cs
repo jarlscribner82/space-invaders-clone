@@ -17,19 +17,23 @@ public class SupportMobController : MobController
     private float leftBounds;
     private float rightBounds;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         SetBounds();
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
 
         StartCoroutine(ToggleSupportState());
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         Move();
     }
 

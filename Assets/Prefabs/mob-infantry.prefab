@@ -112,15 +112,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
-  mobHealth: 0
-  mobMaxHealth: 5
-  mobOriginalDamage: 2
-  mobDamage: 0
+  m_MobHealth: 2
+  m_MobDamage: 2
   cooldownMin: 0
   cooldownMax: 0
   isSupported: 0
-  original_Speed: 0.75
-  speed: 1.5000002
+  m_Speed: 0.75
 --- !u!54 &2502363136192618550
 Rigidbody:
   m_ObjectHideFlags: 0

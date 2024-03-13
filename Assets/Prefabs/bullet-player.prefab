@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4448431672313546599}
   - component: {fileID: 4448431672313546592}
   - component: {fileID: 4448431672313546593}
-  - component: {fileID: -3381443336035055415}
-  - component: {fileID: 2664678458385414190}
+  - component: {fileID: 7634177808975767621}
+  - component: {fileID: 7217228192612972228}
   m_Layer: 7
   m_Name: bullet-player
   m_TagString: player projectile
@@ -99,7 +99,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3381443336035055415
+--- !u!114 &7634177808975767621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 25
---- !u!114 &2664678458385414190
+--- !u!114 &7217228192612972228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
