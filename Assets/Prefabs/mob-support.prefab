@@ -58,10 +58,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd399f817c28e8478bcc9867d07dd52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  supporter: {fileID: 1902443287}
-  tank: {fileID: 1952074550, guid: 57d14fa4637374a4b89ee5aba4a7ce9b, type: 3}
-  ranged: {fileID: 617126994, guid: 385d09b28a49ef046b6403e52f86cabe, type: 3}
-  infantry: {fileID: 2924115722726392905, guid: c45c07982fff7d743b9fabd4cc065dd3, type: 3}
 --- !u!1 &3940013282507796643
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,10 +170,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
-  mobHealth: 0
-  mobMaxHealth: 1
-  mobOriginalDamage: 0
-  mobDamage: 1
+  m_MobHealth: 1
+  m_MobDamage: 0
   cooldownMin: 1
   cooldownMax: 4
   isSupported: 0

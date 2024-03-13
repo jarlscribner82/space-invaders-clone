@@ -10,13 +10,17 @@ public class TankMobController : MobController
     // shield state
     [SerializeField] bool shieldActive = true;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         StartCoroutine(ToggleShieldState());
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         ToggleShieldActive();
     }
 

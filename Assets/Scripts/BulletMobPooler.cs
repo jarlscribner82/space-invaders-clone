@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class BulletMobPooler : MonoBehaviour
 {
+    // make pooler accessible
     public static BulletMobPooler SharedInstance;
+    // create a list of pooled objects
     [SerializeField] List<GameObject> pooledObjects;
+    // refernce for object to be pooled
     [SerializeField] GameObject objectToPool;
+    // limit the number of objects to pool
     [SerializeField] int amountToPool;
 
     void Awake()

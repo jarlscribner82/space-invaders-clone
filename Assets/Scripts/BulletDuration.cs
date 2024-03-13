@@ -6,7 +6,17 @@ public class BulletDuration : MonoBehaviour
 {
     private void Update()
     {
-        StartCoroutine(DeactivateBullet());
+        
+        StartDeactivation();
+    }
+
+    // check if bullet is active and start to deactivate it
+    void StartDeactivation()
+    {
+        if (gameObject.activeSelf)
+        {
+            StartCoroutine(DeactivateBullet());
+        }
     }
 
     // set bullet to deactivate after one second

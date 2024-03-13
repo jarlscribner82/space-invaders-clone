@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MoveBulletMob : MonoBehaviour
 {
-    // Speed fo object
+    // Speed of object
     [SerializeField] float speed;
 
     // Update is called once per frame
     void Update()
     {
-        // move object up
+        // move object down
         transform.Translate(speed * Time.deltaTime * Vector3.down);
     }
 }

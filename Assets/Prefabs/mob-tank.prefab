@@ -210,13 +210,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
-  mobHealth: 0
-  mobMaxHealth: 10
-  mobOriginalDamage: 0
-  mobDamage: 0
+  m_MobHealth: 3
+  m_MobDamage: 0
   cooldownMin: 1
   cooldownMax: 4
-  isSupported: 1
+  isSupported: 0
   shield: {fileID: 695123567}
   shieldActive: 1
 --- !u!54 &349918338
