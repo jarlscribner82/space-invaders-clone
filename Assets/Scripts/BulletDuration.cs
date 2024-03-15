@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class BulletDuration : MonoBehaviour
 {
-    // firing state
-    bool isFired = false;
-
     private void Update()
     {
+        
         StartDeactivation();
     }
 
-    // check if bullet is active and just starting to fire, then start to deactivate it
+    // check if bullet is active and start to deactivate it
     void StartDeactivation()
     {
-        if (gameObject.activeSelf && !isFired)
+        if (gameObject.activeSelf)
         {
-            isFired = true;
             StartCoroutine(DeactivateBullet());
         }
     }
@@ -27,6 +24,5 @@ public class BulletDuration : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         gameObject.SetActive(false);
-        isFired = false;
     }
 }

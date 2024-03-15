@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5707488003243669075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: -5}
+  m_LocalPosition: {x: 1, y: 2.5, z: -5}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -112,12 +112,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 1028867248452026363, guid: ea470d3753467be448c1971c8df66a52, type: 3}
-  m_MaxHealth: 1
-  mobHealth: 0
+  m_MobHealth: 1
   m_MobDamage: 1
   cooldownMin: 1
   cooldownMax: 4
-  cooldownEnabled: 0
   isSupported: 0
 --- !u!54 &936868981
 Rigidbody:

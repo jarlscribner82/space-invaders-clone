@@ -14,10 +14,9 @@ GameObject:
   - component: {fileID: 4448431672313546593}
   - component: {fileID: 7634177808975767621}
   - component: {fileID: 7217228192612972228}
-  - component: {fileID: 6131535109880579654}
   m_Layer: 7
   m_Name: bullet-player
-  m_TagString: player-bullet
+  m_TagString: player projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 366d1f3f820547a438d9018aa1254551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 25
 --- !u!114 &7217228192612972228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,19 +124,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4f0b63e4435de4a89b7566c5fc4211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &6131535109880579654
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4448431672313546594}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 120
-  m_CollisionDetection: 0
