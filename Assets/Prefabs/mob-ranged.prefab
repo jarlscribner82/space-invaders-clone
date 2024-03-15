@@ -112,10 +112,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 1028867248452026363, guid: ea470d3753467be448c1971c8df66a52, type: 3}
-  m_MobHealth: 1
+  m_MaxHealth: 1
+  mobHealth: 0
   m_MobDamage: 1
   cooldownMin: 1
   cooldownMax: 4
+  cooldownEnabled: 0
   isSupported: 0
 --- !u!54 &936868981
 Rigidbody:

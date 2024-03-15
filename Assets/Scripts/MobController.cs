@@ -8,18 +8,14 @@ public class MobController : MonoBehaviour
     public PlayerController playerController;
 
     // mob attributes
-    [SerializeField] int m_MobHealth;
-    public int MobHealth 
+    [SerializeField] int m_MaxHealth;
+    public int MaxHealth 
     { 
-        get { return m_MobHealth; }
-        set
-        {
-            if (value > m_MobHealth)
-            {
-                m_MobHealth = value;
-            }
-        }
+        get { return m_MaxHealth; }
+        set { m_MaxHealth = value; }
     }
+
+    public int mobHealth;
     
     [SerializeField] int m_MobDamage;
     public int MobDamage
@@ -43,7 +39,7 @@ public class MobController : MonoBehaviour
     }
     protected virtual void Start()
     {
-
+        mobHealth = MaxHealth;
     }
 
     protected virtual void Update()

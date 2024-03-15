@@ -19,7 +19,7 @@ public class SupportFieldController : MonoBehaviour
             tank.isSupported = true;
             tank.RaiseHealth();
 
-            Debug.Log("TANK: " + tank.MobHealth);
+            Debug.Log("TANK: " + tank.mobHealth);
         }
         if (collision.gameObject.CompareTag("Ranged") && !ranged.isSupported && supporter.isSupporting)
         {                      

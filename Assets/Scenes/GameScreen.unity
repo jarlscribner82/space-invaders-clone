@@ -522,9 +522,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f987b56c55fa64846949453a6ef53829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStr: 0
+  playerStr: 1
   playerSpd: 5
-  playerHealth: 0
+  playerHealth: 3
   playerPoints: 0
   playerMaxHealth: 0
   isAlive: 1
