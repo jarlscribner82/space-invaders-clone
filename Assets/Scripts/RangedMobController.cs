@@ -56,4 +56,10 @@ public class RangedMobController : MobController
     {
         return Random.Range(cooldownMin, cooldownMax);
     }
+
+    // raise damage, stackable with no limit
+    public virtual void RaiseDamage()
+    {
+        MobDamage += 1;
+    }
 }

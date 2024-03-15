@@ -56,18 +56,6 @@ public class MobController : MonoBehaviour
         }
     }
 
-    // raise damage, stackable with no limit
-    public virtual void RaiseDamage()
-    {
-        MobDamage += 1;
-    }
-
-    // raise health, stackable limited to m_MobHealth
-    public virtual void RaiseHealth()
-    {
-        MobHealth += 1;
-    }
-
     // deal damage to player
     public virtual void DealDamage()
     {
