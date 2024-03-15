@@ -31,11 +31,15 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        PlayerMove();
         FireProjectile();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        PlayerMove();        
     }
 
     // enable horizontal motion and max speed
@@ -96,7 +100,7 @@ public class PlayerController : MonoBehaviour
                 pooledProjectile.SetActive(true);
 
                 // set position and rotation
-                pooledProjectile.transform.SetPositionAndRotation(transform.position, transform.rotation);
+                pooledProjectile.transform.SetPositionAndRotation(projectileSpawnPoint.transform.position, projectileSpawnPoint.transform.rotation);
             }
         }
     }

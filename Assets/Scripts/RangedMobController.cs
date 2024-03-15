@@ -15,9 +15,9 @@ public class RangedMobController : MobController
     }
 
     // Update is called once per frame
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base .Update();
+        base .FixedUpdate();
 
         Fire();
     }
@@ -56,4 +56,13 @@ public class RangedMobController : MobController
     {
         return Random.Range(cooldownMin, cooldownMax);
     }
+<<<<<<< Updated upstream
+=======
+
+    // raise damage, stackable with no limit
+    public virtual void RaiseDamage()
+    {
+        MobDamage += 1;
+    }
+>>>>>>> Stashed changes
 }

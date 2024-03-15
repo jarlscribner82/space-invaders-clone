@@ -8,7 +8,7 @@ public class MoveBulletPlayer : MonoBehaviour
     [SerializeField] float speed;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // move object up
         transform.Translate(speed * Time.deltaTime * Vector3.up);

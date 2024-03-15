@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BulletDuration : MonoBehaviour
 {
+<<<<<<< Updated upstream
+=======
+    private bool isfired = false;
+
+>>>>>>> Stashed changes
     private void Update()
     {
         
@@ -13,8 +18,14 @@ public class BulletDuration : MonoBehaviour
     // check if bullet is active and start to deactivate it
     void StartDeactivation()
     {
+<<<<<<< Updated upstream
         if (gameObject.activeSelf)
         {
+=======
+        if (gameObject.activeSelf && !isfired)
+        {
+            isfired = true;
+>>>>>>> Stashed changes
             StartCoroutine(DeactivateBullet());
         }
     }
@@ -24,5 +35,9 @@ public class BulletDuration : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         gameObject.SetActive(false);
+<<<<<<< Updated upstream
+=======
+        isfired= false;
+>>>>>>> Stashed changes
     }
 }

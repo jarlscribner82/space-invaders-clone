@@ -17,9 +17,9 @@ public class TankMobController : MobController
         StartCoroutine(ToggleShieldState());
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
 
         ToggleShieldActive();
     }
@@ -52,4 +52,13 @@ public class TankMobController : MobController
     {
         return Random.Range(cooldownMin, cooldownMax);
     }
+<<<<<<< Updated upstream
+=======
+
+    // raise health, stackable limited to m_MobHealth
+    public virtual void RaiseHealth()
+    {
+        mobHealth += 1;
+    }
+>>>>>>> Stashed changes
 }

@@ -210,7 +210,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
+<<<<<<< Updated upstream
   m_MobHealth: 3
+=======
+  m_MaxMobHealth: 100
+  mobHealth: 0
+>>>>>>> Stashed changes
   m_MobDamage: 0
   cooldownMin: 1
   cooldownMax: 4

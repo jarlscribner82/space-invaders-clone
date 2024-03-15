@@ -8,6 +8,7 @@ public class MobController : MonoBehaviour
     public PlayerController playerController;
 
     // mob attributes
+<<<<<<< Updated upstream
     [SerializeField] int m_MobHealth;
     public int MobHealth 
     { 
@@ -20,6 +21,16 @@ public class MobController : MonoBehaviour
             }
         }
     }
+=======
+    [SerializeField] int m_MaxMobHealth;
+    public int MaxMobHealth 
+    { 
+        get { return m_MaxMobHealth; }
+        set { m_MaxMobHealth = value; }
+    }
+
+    public int mobHealth;
+>>>>>>> Stashed changes
     
     [SerializeField] int m_MobDamage;
     public int MobDamage
@@ -43,10 +54,14 @@ public class MobController : MonoBehaviour
     }
     protected virtual void Start()
     {
+<<<<<<< Updated upstream
 
+=======
+        mobHealth = MaxMobHealth;
+>>>>>>> Stashed changes
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         if (isSupported && !cooldownEnabled)
         {
@@ -74,6 +89,14 @@ public class MobController : MonoBehaviour
         playerController.playerHealth -= MobDamage;
     }
 
+<<<<<<< Updated upstream
+=======
+    protected virtual void TakeDamage()
+    {
+        mobHealth -= playerController.playerStr;
+    }
+
+>>>>>>> Stashed changes
     // state toggler for recieving support
     public virtual IEnumerator SupporterCooldown()
     {
@@ -81,6 +104,16 @@ public class MobController : MonoBehaviour
             cooldownEnabled = false;
             isSupported = false;
 
+<<<<<<< Updated upstream
         Debug.Log("Support Cooldown Finished");
+=======
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("bullet-player"))
+        {
+            TakeDamage();
+            collision.gameObject.SetActive(false);
+        }
+>>>>>>> Stashed changes
     }
 }

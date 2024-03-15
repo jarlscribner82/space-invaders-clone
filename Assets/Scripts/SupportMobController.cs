@@ -30,9 +30,9 @@ public class SupportMobController : MobController
         StartCoroutine(ToggleSupportState());
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
 
         Move();
     }
