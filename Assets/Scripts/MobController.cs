@@ -2,27 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MobController : MonoBehaviour
+public abstract class MobController : MonoBehaviour
 {
     // inspector reference
     public PlayerController playerController;
 
     // mob attributes
-    [SerializeField] int m_MobHealth;
-    public int MobHealth 
-    { 
-        get { return m_MobHealth; }
-        set
-        {
-            if (value > m_MobHealth)
-            {
-                m_MobHealth = value;
-            }
-        }
+    [SerializeField] int m_MaxHealth;
+
+    protected int MaxHealth
+    {
+        get { return m_MaxHealth; }
+        set { m_MaxHealth = value; }
     }
-    
+
+    public int mobHealth;
+
     [SerializeField] int m_MobDamage;
-    public int MobDamage
+    public virtual int MobDamage
     {
         get { return m_MobDamage; }
         set { m_MobDamage = value; }
@@ -43,29 +40,16 @@ public class MobController : MonoBehaviour
     }
     protected virtual void Start()
     {
-
+        mobHealth = MaxHealth;
     }
 
     protected virtual void Update()
     {
         if (isSupported && !cooldownEnabled)
         {
-            Debug.Log("Support Cooldown Started");
             cooldownEnabled = true;
             StartCoroutine(SupporterCooldown());
         }
-    }
-
-    // raise damage, stackable with no limit
-    public virtual void RaiseDamage()
-    {
-        MobDamage += 1;
-    }
-
-    // raise health, stackable limited to m_MobHealth
-    public virtual void RaiseHealth()
-    {
-        MobHealth += 1;
     }
 
     // deal damage to player
@@ -74,13 +58,32 @@ public class MobController : MonoBehaviour
         playerController.playerHealth -= MobDamage;
     }
 
+    // damage the mob
+    public virtual void TakeDamage()
+    {
+        mobHealth -= playerController.playerStr;
+
+        if (mobHealth <= 0) 
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // state toggler for recieving support
-    public virtual IEnumerator SupporterCooldown()
+    protected virtual IEnumerator SupporterCooldown()
     {
             yield return new WaitForSecondsRealtime(cooldownMax);
             cooldownEnabled = false;
             isSupported = false;
+    }
 
-        Debug.Log("Support Cooldown Finished");
+    // when colliding with a player bullet, take damage and deactivate the bullet
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("player-bullet"))
+        {
+            TakeDamage();
+            collision.gameObject.SetActive(false);
+        }
     }
 }

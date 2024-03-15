@@ -20,6 +20,7 @@ public class SupportMobController : MobController
     protected override void Awake()
     {
         base.Awake();
+
         SetBounds();
     }
 
@@ -87,5 +88,10 @@ public class SupportMobController : MobController
     int SupportCooldown()
     {
         return Random.Range(cooldownMin, cooldownMax);
+    }
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        base.OnCollisionEnter(collision);
     }
 }

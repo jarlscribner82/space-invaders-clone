@@ -170,10 +170,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
-  m_MobHealth: 1
+  m_MaxHealth: 1
+  mobHealth: 0
   m_MobDamage: 0
   cooldownMin: 1
   cooldownMax: 4
+  cooldownEnabled: 0
   isSupported: 0
   isSupporting: 0
   speed: 0.01

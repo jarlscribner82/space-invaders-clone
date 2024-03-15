@@ -52,4 +52,15 @@ public class TankMobController : MobController
     {
         return Random.Range(cooldownMin, cooldownMax);
     }
+
+    // raise health, stackable limited to m_MobHealth
+    public virtual void RaiseHealth()
+    {
+        mobHealth += 1;
+
+        if (mobHealth > MaxHealth)
+        {
+            mobHealth = MaxHealth;
+        }
+    }
 }

@@ -18,22 +18,16 @@ public class SupportFieldController : MonoBehaviour
         {           
             tank.isSupported = true;
             tank.RaiseHealth();
-
-            Debug.Log("TANK: " + tank.MobHealth);
         }
         if (collision.gameObject.CompareTag("Ranged") && !ranged.isSupported && supporter.isSupporting)
         {                      
             ranged.isSupported = true;
             ranged.RaiseDamage();
-
-            Debug.Log("RANGED: " + ranged.MobDamage);
         }
         if (collision.gameObject.CompareTag("Infantry") && !infantry.isSupported && supporter.isSupporting)
         {
             infantry.isSupported = true;
             infantry.RaiseSpeed();
-
-            Debug.Log("INFANTRY: " + infantry.Speed);
         }
     }    
 }
