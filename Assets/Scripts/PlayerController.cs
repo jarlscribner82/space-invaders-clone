@@ -7,6 +7,7 @@ using UnityEngine.Pool;
 
 public class PlayerController : MonoBehaviour
 {
+    // access rigid body
     private Rigidbody playerRb;
 
     // player attributes

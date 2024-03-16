@@ -13,5 +13,11 @@ public class ShieldPlayer : MonoBehaviour
             other.gameObject.GetComponent<BulletMobController>().fired = false;
             other.gameObject.SetActive(false);
         }
+
+        // destroy infantry unit on contact
+        if (other.gameObject.CompareTag("Infantry"))
+        {
+            Destroy(other.gameObject);
+        }
     }
 }

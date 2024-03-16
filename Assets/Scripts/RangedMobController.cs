@@ -58,8 +58,13 @@ public class RangedMobController : MobController
     }
 
     // raise damage, stackable with no limit
-    public virtual void RaiseDamage()
+    public virtual void RaiseFiringSpeed()
     {
-        MobDamage += 1;
+        cooldownMax -= 1;
+
+        if (cooldownMax <= cooldownMin) 
+        {
+            cooldownMax = cooldownMin + 1;
+        }
     }
 }

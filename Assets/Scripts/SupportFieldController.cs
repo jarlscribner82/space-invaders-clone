@@ -22,7 +22,7 @@ public class SupportFieldController : MonoBehaviour
         if (other.gameObject.CompareTag("Ranged") && !ranged.isSupported && supporter.isSupporting)
         {                      
             ranged.isSupported = true;
-            ranged.RaiseDamage();
+            ranged.RaiseFiringSpeed();
         }
         if (other.gameObject.CompareTag("Infantry") && !infantry.isSupported && supporter.isSupporting)
         {

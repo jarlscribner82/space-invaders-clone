@@ -26,7 +26,7 @@ public class BulletController : MonoBehaviour
     }
 
     // set bullet to deactivate after one second
-    IEnumerator DeactivateBullet()
+    protected virtual IEnumerator DeactivateBullet()
     {
         yield return new WaitForSeconds(1);
         fired = false;

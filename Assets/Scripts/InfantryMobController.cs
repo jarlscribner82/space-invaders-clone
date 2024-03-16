@@ -36,7 +36,7 @@ public class InfantryMobController : MobController
     {
         base.Update();
 
-        //FollowPlayer();
+        FollowPlayer();
     }
 
     // enable enemy track and follow for player
@@ -74,5 +74,17 @@ public class InfantryMobController : MobController
     public void RaiseSpeed()
     {
         Speed += 0.1f;
+    }
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        base.OnCollisionEnter(collision);
+
+        // destroy infantry instance on player contact
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerController.playerHealth -= MobDamage;
+            Destroy(gameObject);
+        }
     }
 }
