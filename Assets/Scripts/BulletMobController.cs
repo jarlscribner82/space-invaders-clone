@@ -21,10 +21,12 @@ public class BulletMobController : BulletController
 
     private void OnTriggerEnter(Collider other)
     {
-        // damage the player on bullet contact
+        // damage the player on bullet contact and destroy bullet
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerController>().playerHealth -= ranged.GetComponent<RangedMobController>().MobDamage;
+            fired = false;
+            gameObject.SetActive(false);
         }
     }
 }
