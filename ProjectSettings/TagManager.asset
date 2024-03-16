@@ -8,8 +8,8 @@ TagManager:
   - Tank
   - Ranged
   - Infantry
-  - Mob Projectile
-  - player-bullet
+  - bullet-player
+  - bullet-mob
   layers:
   - Default
   - TransparentFX

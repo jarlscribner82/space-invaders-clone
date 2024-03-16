@@ -2,24 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MobController : MonoBehaviour
+public class MobController : MonoBehaviour
 {
     // inspector reference
     public PlayerController playerController;
 
     // mob attributes
-    [SerializeField] int m_MaxHealth;
 
-    protected int MaxHealth
-    {
+    // max health protected with backing field for easy initialization
+    [SerializeField] int m_MaxHealth;
+    public int MaxHealth 
+    { 
         get { return m_MaxHealth; }
         set { m_MaxHealth = value; }
     }
 
+    // mob health place holder
     public int mobHealth;
-
+    
+    // damage protected with a backing field for easy initialization
     [SerializeField] int m_MobDamage;
-    public virtual int MobDamage
+    public int MobDamage
     {
         get { return m_MobDamage; }
         set { m_MobDamage = value; }
@@ -58,32 +61,33 @@ public abstract class MobController : MonoBehaviour
         playerController.playerHealth -= MobDamage;
     }
 
-    // damage the mob
-    public virtual void TakeDamage()
+    // mob takes damage equalt to player strength destroys mob if less than 1 health
+    protected virtual void TakeDamage()
     {
         mobHealth -= playerController.playerStr;
 
-        if (mobHealth <= 0) 
+        if (mobHealth < 1)
         {
             Destroy(gameObject);
         }
     }
 
     // state toggler for recieving support
-    protected virtual IEnumerator SupporterCooldown()
+    public virtual IEnumerator SupporterCooldown()
     {
             yield return new WaitForSecondsRealtime(cooldownMax);
             cooldownEnabled = false;
             isSupported = false;
     }
 
-    // when colliding with a player bullet, take damage and deactivate the bullet
-    protected virtual void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("player-bullet"))
+        // if bullet hits mob, set bullet to false to repool and reet duration bool, finally damage the monster
+        if (collision.gameObject.CompareTag("bullet-player"))
         {
-            TakeDamage();
+            collision.gameObject.GetComponent<BulletDuration>().fired = false;
             collision.gameObject.SetActive(false);
+            TakeDamage();
         }
     }
 }

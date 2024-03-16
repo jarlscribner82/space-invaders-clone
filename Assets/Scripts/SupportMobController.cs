@@ -14,13 +14,13 @@ public class SupportMobController : MobController
     private bool movingRight = false;
 
     // boundary variables
+    [SerializeField] float moveRange = 0.75f;
     private float leftBounds;
     private float rightBounds;
 
     protected override void Awake()
     {
         base.Awake();
-
         SetBounds();
     }
 
@@ -41,8 +41,8 @@ public class SupportMobController : MobController
     // set movement boundaries according to prefab spawn position
     void SetBounds()
     {
-        leftBounds = transform.position.x - 0.5f;
-        rightBounds = transform.position.x + 0.5f;
+        leftBounds = transform.position.x - moveRange;
+        rightBounds = transform.position.x + moveRange;
     }
 
     // change direction when boundaries are breached
@@ -88,10 +88,5 @@ public class SupportMobController : MobController
     int SupportCooldown()
     {
         return Random.Range(cooldownMin, cooldownMax);
-    }
-
-    protected override void OnCollisionEnter(Collision collision)
-    {
-        base.OnCollisionEnter(collision);
     }
 }

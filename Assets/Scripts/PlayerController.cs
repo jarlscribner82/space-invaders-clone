@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Networking.Types;
 using UnityEngine.Pool;
 
 public class PlayerController : MonoBehaviour
@@ -20,6 +21,11 @@ public class PlayerController : MonoBehaviour
     // boundary references
     private int boundaryRange = 12;
 
+    // object reference for shield
+    public GameObject shield;
+
+    private bool isShielding = false;
+
     // object reference for projectile
     public GameObject projectilePrefab;
 
@@ -36,6 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerMove();
         FireProjectile();
+        ActivateShield();
     }
 
     // enable horizontal motion and max speed
@@ -80,11 +87,12 @@ public class PlayerController : MonoBehaviour
     }
 
     // fire a projectile. creates an instance of an object, places it at the players position, points it in the direction of the copied object
+    // firing prohibited if shield is active
     void FireProjectile()
     {
         bool fireInput = Input.GetButtonDown("Fire1");
 
-        if (fireInput)
+        if (fireInput && !isShielding)
         {
             // get an object from the pool
             GameObject pooledProjectile = BulletPlayerPooler.SharedInstance.GetPooledObject();
@@ -98,6 +106,23 @@ public class PlayerController : MonoBehaviour
                 // set position and rotation
                 pooledProjectile.transform.SetPositionAndRotation(transform.position, transform.rotation);
             }
+        }
+    }
+
+    // activate or deactivate shield when x button held, also changes shielding state
+    void ActivateShield()
+    {
+        bool activateShield = Input.GetButton("Fire2");
+
+        if (activateShield)
+        {
+            isShielding = true;
+            shield.SetActive(true);
+        }
+        else
+        {
+            isShielding = false;
+            shield.SetActive(false);
         }
     }
 }
