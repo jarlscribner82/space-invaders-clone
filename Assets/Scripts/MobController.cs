@@ -8,6 +8,8 @@ public class MobController : MonoBehaviour
     public PlayerController playerController;
 
     // mob attributes
+
+    // max health protected with backing field for easy initialization
     [SerializeField] int m_MaxHealth;
     public int MaxHealth 
     { 
@@ -15,8 +17,10 @@ public class MobController : MonoBehaviour
         set { m_MaxHealth = value; }
     }
 
+    // mob health place holder
     public int mobHealth;
     
+    // damage protected with a backing field for easy initialization
     [SerializeField] int m_MobDamage;
     public int MobDamage
     {
@@ -78,7 +82,7 @@ public class MobController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // if bullet hits mob set bullet to false to repool and damage the monster
+        // if bullet hits mob, set bullet to false to repool and reet duration bool, finally damage the monster
         if (collision.gameObject.CompareTag("player projectile"))
         {
             collision.gameObject.GetComponent<BulletDuration>().fired = false;

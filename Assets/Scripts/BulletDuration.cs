@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletDuration : MonoBehaviour
 {
+    // bool for limiting amount of coroutines per life cycle to one
     public bool fired = false;
 
     private void Update()

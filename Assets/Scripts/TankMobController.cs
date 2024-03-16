@@ -54,7 +54,7 @@ public class TankMobController : MobController
     }
 
 
-    // raise health, stackable limited to m_MobHealth
+    // raise health, limited to MaxHealth
     public virtual void RaiseHealth()
     {
         mobHealth += 1;
