@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8518769858518983368}
   m_Layer: 8
   m_Name: bullet-enemy
-  m_TagString: Mob Projectile
+  m_TagString: bullet-mob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4f0b63e4435de4a89b7566c5fc4211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fired: 0
 --- !u!114 &8518769858518983368
 MonoBehaviour:
   m_ObjectHideFlags: 0

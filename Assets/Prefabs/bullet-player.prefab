@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7217228192612972228}
   m_Layer: 7
   m_Name: bullet-player
-  m_TagString: player projectile
+  m_TagString: bullet-player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,3 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4f0b63e4435de4a89b7566c5fc4211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fired: 0

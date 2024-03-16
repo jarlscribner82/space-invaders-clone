@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 695123571}
   - component: {fileID: 695123570}
   - component: {fileID: 695123569}
+  - component: {fileID: 1747725194}
   m_Layer: 6
   m_Name: shield
   m_TagString: Untagged
@@ -97,6 +98,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1747725194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695123567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c147982359925469cca5fc6d58cc95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3059484433957159676
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +124,6 @@ GameObject:
   - component: {fileID: 3059484433957159675}
   - component: {fileID: 1952074550}
   - component: {fileID: 349918338}
-  - component: {fileID: 5177390976387034767}
   m_Layer: 6
   m_Name: mob-tank
   m_TagString: Tank
@@ -236,15 +248,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5177390976387034767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3059484433957159676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3f061e1e8818c1418e7d368aa334181, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

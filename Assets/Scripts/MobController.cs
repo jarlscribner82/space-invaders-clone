@@ -83,7 +83,7 @@ public class MobController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // if bullet hits mob, set bullet to false to repool and reet duration bool, finally damage the monster
-        if (collision.gameObject.CompareTag("player projectile"))
+        if (collision.gameObject.CompareTag("bullet-player"))
         {
             collision.gameObject.GetComponent<BulletDuration>().fired = false;
             collision.gameObject.SetActive(false);
