@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletDuration : MonoBehaviour
 {
-    private bool fired;
+    public bool fired = false;
 
     private void Update()
     {
@@ -26,7 +26,8 @@ public class BulletDuration : MonoBehaviour
     IEnumerator DeactivateBullet()
     {
         yield return new WaitForSeconds(1);
-        gameObject.SetActive(false);
         fired = false;
+        gameObject.SetActive(false);
+        
     }
 }

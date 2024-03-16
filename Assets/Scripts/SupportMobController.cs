@@ -14,6 +14,7 @@ public class SupportMobController : MobController
     private bool movingRight = false;
 
     // boundary variables
+    [SerializeField] float moveRange = 0.75f;
     private float leftBounds;
     private float rightBounds;
 
@@ -40,8 +41,8 @@ public class SupportMobController : MobController
     // set movement boundaries according to prefab spawn position
     void SetBounds()
     {
-        leftBounds = transform.position.x - 0.5f;
-        rightBounds = transform.position.x + 0.5f;
+        leftBounds = transform.position.x - moveRange;
+        rightBounds = transform.position.x + moveRange;
     }
 
     // change direction when boundaries are breached

@@ -46,7 +46,6 @@ public class MobController : MonoBehaviour
     {
         if (isSupported && !cooldownEnabled)
         {
-            Debug.Log("Support Cooldown Started");
             cooldownEnabled = true;
             StartCoroutine(SupporterCooldown());
         }
@@ -58,13 +57,33 @@ public class MobController : MonoBehaviour
         playerController.playerHealth -= MobDamage;
     }
 
+    // mob takes damage equalt to player strength destroys mob if less than 1 health
+    protected virtual void TakeDamage()
+    {
+        mobHealth -= playerController.playerStr;
+
+        if (mobHealth < 1)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // state toggler for recieving support
     public virtual IEnumerator SupporterCooldown()
     {
             yield return new WaitForSecondsRealtime(cooldownMax);
             cooldownEnabled = false;
             isSupported = false;
+    }
 
-        Debug.Log("Support Cooldown Finished");
+    private void OnCollisionEnter(Collision collision)
+    {
+        // if bullet hits mob set bullet to false to repool and damage the monster
+        if (collision.gameObject.CompareTag("player projectile"))
+        {
+            collision.gameObject.GetComponent<BulletDuration>().fired = false;
+            collision.gameObject.SetActive(false);
+            TakeDamage();
+        }
     }
 }

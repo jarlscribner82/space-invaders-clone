@@ -58,5 +58,10 @@ public class TankMobController : MobController
     public virtual void RaiseHealth()
     {
         mobHealth += 1;
+
+        if (mobHealth > MaxHealth)
+        {
+            mobHealth = MaxHealth;
+        }
     }
 }
