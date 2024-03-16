@@ -5,13 +5,12 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     // bullet attribute
-    [SerializeField] int speed;
-    [SerializeField] int damage;
+    public int speed;
 
     // bool for limiting amount of coroutines per life cycle to one
     public bool fired = false;
 
-    private void Update()
+    protected virtual void Update()
     {
         StartDeactivation();
     }

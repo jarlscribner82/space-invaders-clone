@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletMobController : MonoBehaviour
+public class BulletMobController : BulletController
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void Update()
     {
-        
+        base.Update();
+        MoveBullet();
     }
 
-    // Update is called once per frame
-    void Update()
+    // move object down
+    private void MoveBullet()
     {
-        
+        transform.Translate(speed * Time.deltaTime * Vector3.down);
     }
 }

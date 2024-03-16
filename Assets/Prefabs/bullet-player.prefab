@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 4448431672313546599}
   - component: {fileID: 4448431672313546592}
   - component: {fileID: 4448431672313546593}
-  - component: {fileID: 7634177808975767621}
-  - component: {fileID: 7217228192612972228}
+  - component: {fileID: -6556880711027615201}
   m_Layer: 7
   m_Name: bullet-player
   m_TagString: bullet-player
@@ -99,7 +98,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7634177808975767621
+--- !u!114 &-6556880711027615201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,20 +107,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4448431672313546594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 366d1f3f820547a438d9018aa1254551, type: 3}
+  m_Script: {fileID: 11500000, guid: 67334141d64c8c745b8e1a9c15bf8ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
---- !u!114 &7217228192612972228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4448431672313546594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a4f0b63e4435de4a89b7566c5fc4211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  speed: 20
+  damage: 1
   fired: 0

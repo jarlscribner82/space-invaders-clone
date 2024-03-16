@@ -10,7 +10,7 @@ public class ShieldPlayer : MonoBehaviour
         // mob shield blocks player bullet
         if (other.gameObject.CompareTag("bullet-mob"))
         {
-            other.gameObject.GetComponent<BulletDuration>().fired = false;
+            other.gameObject.GetComponent<BulletMobController>().fired = false;
             other.gameObject.SetActive(false);
         }
     }
