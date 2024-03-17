@@ -10,7 +10,7 @@ public class BulletController : MonoBehaviour
     // bool for limiting amount of coroutines per life cycle to one
     public bool fired = false;
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         StartDeactivation();
     }
