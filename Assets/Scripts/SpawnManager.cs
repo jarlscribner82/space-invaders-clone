@@ -34,7 +34,12 @@ public class SpawnManager : MonoBehaviour
         bool testSpawn = Input.GetButtonDown("Fire3");
         if (testSpawn)
         {
-            SpawnSupporter();
+            SpawnRanged();
+        }
+
+        if (emptyRangedSpawnPoints.Count == 0)
+        {
+            ResetRangedPoints();
         }
     }
 
@@ -55,6 +60,19 @@ public class SpawnManager : MonoBehaviour
         }        
     }
 
+    // take all objects in full points and transfer them back to empty points then empty the full points list
+    void ResetSupporterPoints()
+    {
+        if (fullSupportSpawnPoints.Count > 0)
+        {
+            foreach (Transform t in fullSupportSpawnPoints)
+            {
+                emptySupportSpawnPoints.Add(t);                
+            }            
+            fullSupportSpawnPoints.Clear();
+        }      
+    }
+
     // spawn a tank in a random tank spawn point as long there are empty points
     void SpawnTank()
     {
@@ -69,6 +87,19 @@ public class SpawnManager : MonoBehaviour
                 fullTankSpawnPoints.Add(emptyTankSpawnPoints[randomIndex]);
                 emptyTankSpawnPoints.RemoveAt(randomIndex);
             }
+        }
+    }
+
+    // take all objects in full points and transfer them back to empty points then empty the full points list
+    void ResetTankPoints()
+    {
+        if (fullTankSpawnPoints.Count > 0)
+        {
+            foreach (Transform t in fullTankSpawnPoints)
+            {
+                emptyTankSpawnPoints.Add(t);
+            }
+            fullTankSpawnPoints.Clear();
         }
     }
 
@@ -88,6 +119,20 @@ public class SpawnManager : MonoBehaviour
             }
         }
     }
+
+    // take all objects in full points and transfer them back to empty points then empty the full points list
+    void ResetInfantryPoints()
+    {
+        if (fullInfantrySpawnPoints.Count > 0)
+        {
+            foreach (Transform t in fullInfantrySpawnPoints)
+            {
+                emptyInfantrySpawnPoints.Add(t);
+            }
+            fullInfantrySpawnPoints.Clear();
+        }
+    }
+
     // spawn a ranged in a random ranged spawn point as long there are empty points
     void SpawnRanged()
     {
@@ -104,4 +149,18 @@ public class SpawnManager : MonoBehaviour
             }
         }
     }
+
+    // take all objects in full points and transfer them back to empty points then empty the full points list
+    void ResetRangedPoints()
+    {
+        if (fullRangedSpawnPoints.Count > 0)
+        {
+            foreach (Transform t in fullRangedSpawnPoints)
+            {
+                emptyRangedSpawnPoints.Add(t);
+            }
+            fullRangedSpawnPoints.Clear();
+        }
+    }
+
 }
