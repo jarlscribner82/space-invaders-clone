@@ -7,10 +7,9 @@ public class BulletMobController : BulletController
     // access ranged mob
     [SerializeField] GameObject ranged;
 
-    protected override void FixedUpdate()
+    private void FixedUpdate()
     {
-        base.FixedUpdate();
-        MoveBullet();
+    MoveBullet();
     }
 
     // move object down

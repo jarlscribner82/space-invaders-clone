@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletPlayerController : BulletController
-{
-    protected override void FixedUpdate()
+{   
+    void FixedUpdate()
     {
-        base.FixedUpdate();
         MoveBullet();
     }
 
