@@ -9,38 +9,36 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] GameObject support;
     [SerializeField] List<Transform> emptySupportSpawnPoints = new List<Transform>();
     private List<Transform> fullSupportSpawnPoints = new List<Transform>();
+    private bool supporterFull = false;
 
     // tank references
     [SerializeField] GameObject tank;
     [SerializeField] List<Transform> emptyTankSpawnPoints = new List<Transform>();
     private List<Transform> fullTankSpawnPoints = new List<Transform>();
+    private bool tankFull = false;
 
     // infantry references
     [SerializeField] GameObject infantry;
     [SerializeField] List<Transform> emptyInfantrySpawnPoints = new List<Transform>();
     private List<Transform> fullInfantrySpawnPoints = new List<Transform>();
+    private bool infantryFull = false;
 
     // ranged references
     [SerializeField] GameObject ranged;
     [SerializeField] List<Transform> emptyRangedSpawnPoints = new List<Transform>();
     private List<Transform> fullRangedSpawnPoints = new List<Transform>();
+    private bool rangedFull = false;
+
+    [SerializeField] private int waveNumber = 1;
+    public int enemyCount;
 
     private void Start()
     {
-
+        SpawnWave();
     }
     private void Update()
     {
-        bool testSpawn = Input.GetButtonDown("Fire3");
-        if (testSpawn)
-        {
-            SpawnRanged();
-        }
-
-        if (emptyRangedSpawnPoints.Count == 0)
-        {
-            ResetRangedPoints();
-        }
+        SpawnWave();
     }
 
     // spawn a supporter in a random supporter spawn point as long there are empty points
@@ -56,6 +54,13 @@ public class SpawnManager : MonoBehaviour
                 Instantiate(support, selectedPoint);
                 fullSupportSpawnPoints.Add(emptySupportSpawnPoints[randomIndex]);
                 emptySupportSpawnPoints.RemoveAt(randomIndex);
+
+                enemyCount ++;
+            }
+
+            if (emptySupportSpawnPoints.Count <= 0)
+            {
+                supporterFull = true;
             }
         }        
     }
@@ -63,13 +68,15 @@ public class SpawnManager : MonoBehaviour
     // take all objects in full points and transfer them back to empty points then empty the full points list
     void ResetSupporterPoints()
     {
-        if (fullSupportSpawnPoints.Count > 0)
+        if (supporterFull)
         {
             foreach (Transform t in fullSupportSpawnPoints)
             {
                 emptySupportSpawnPoints.Add(t);                
             }            
             fullSupportSpawnPoints.Clear();
+
+            supporterFull = false;
         }      
     }
 
@@ -86,6 +93,13 @@ public class SpawnManager : MonoBehaviour
                 Instantiate(tank, selectedPoint);
                 fullTankSpawnPoints.Add(emptyTankSpawnPoints[randomIndex]);
                 emptyTankSpawnPoints.RemoveAt(randomIndex);
+
+                enemyCount++;
+            }
+
+            if (emptyTankSpawnPoints.Count <= 0)
+            {
+                tankFull = true;
             }
         }
     }
@@ -93,13 +107,15 @@ public class SpawnManager : MonoBehaviour
     // take all objects in full points and transfer them back to empty points then empty the full points list
     void ResetTankPoints()
     {
-        if (fullTankSpawnPoints.Count > 0)
+        if (tankFull)
         {
             foreach (Transform t in fullTankSpawnPoints)
             {
                 emptyTankSpawnPoints.Add(t);
             }
             fullTankSpawnPoints.Clear();
+
+            tankFull = false;
         }
     }
 
@@ -116,6 +132,13 @@ public class SpawnManager : MonoBehaviour
                 Instantiate(infantry, selectedPoint);
                 fullInfantrySpawnPoints.Add(emptyInfantrySpawnPoints[randomIndex]);
                 emptyInfantrySpawnPoints.RemoveAt(randomIndex);
+
+                enemyCount++;
+            }
+
+            if (emptyInfantrySpawnPoints.Count <= 0)
+            {
+                infantryFull = true;
             }
         }
     }
@@ -123,13 +146,15 @@ public class SpawnManager : MonoBehaviour
     // take all objects in full points and transfer them back to empty points then empty the full points list
     void ResetInfantryPoints()
     {
-        if (fullInfantrySpawnPoints.Count > 0)
+        if (infantryFull)
         {
             foreach (Transform t in fullInfantrySpawnPoints)
             {
                 emptyInfantrySpawnPoints.Add(t);
             }
             fullInfantrySpawnPoints.Clear();
+
+            infantryFull = false;
         }
     }
 
@@ -146,6 +171,13 @@ public class SpawnManager : MonoBehaviour
                 Instantiate(ranged, selectedPoint);
                 fullRangedSpawnPoints.Add(emptyRangedSpawnPoints[randomIndex]);
                 emptyRangedSpawnPoints.RemoveAt(randomIndex);
+
+                enemyCount++;
+            }
+
+            if (emptyRangedSpawnPoints.Count <= 0)
+            {
+                rangedFull = true;
             }
         }
     }
@@ -153,14 +185,84 @@ public class SpawnManager : MonoBehaviour
     // take all objects in full points and transfer them back to empty points then empty the full points list
     void ResetRangedPoints()
     {
-        if (fullRangedSpawnPoints.Count > 0)
+        if (rangedFull)
         {
             foreach (Transform t in fullRangedSpawnPoints)
             {
                 emptyRangedSpawnPoints.Add(t);
             }
             fullRangedSpawnPoints.Clear();
+
+            rangedFull = false;
         }
     }
 
+    int MobChooser()
+    {
+        return Random.Range(1, 5);
+    }
+
+    void ChooseMobType()
+    {
+        int chooseMobType = MobChooser();
+
+        if (chooseMobType == 1)
+        {
+            SpawnInfantry();
+
+            if (infantryFull)
+            {
+                MobChooser();
+            }
+        }
+
+        if (chooseMobType == 2)
+        {
+            SpawnSupporter();
+
+            if (supporterFull)
+            {
+                MobChooser();
+            }
+        }
+
+        if (chooseMobType == 3)
+        {
+            SpawnTank();
+
+            if (tankFull)
+            {
+                MobChooser();
+            }
+        }
+
+        if (chooseMobType == 4)
+        {
+            SpawnRanged();
+
+            if (rangedFull)
+            {
+                MobChooser();
+            }
+        }
+    }
+
+    // spawn a wave of mobs
+    void SpawnWave()
+    {
+        if (enemyCount == 0)
+        {
+            ResetInfantryPoints();
+            ResetTankPoints();
+            ResetRangedPoints();
+            ResetSupporterPoints();
+
+            for (int i = 0; i < waveNumber; i++)
+            {
+                ChooseMobType();
+            }
+
+            waveNumber++;
+        }
+    }
 }
