@@ -1678,7 +1678,7 @@ MonoBehaviour:
   - {fileID: 1969338820}
   - {fileID: 691979952}
   - {fileID: 1578141026}
-  waveNumber: 53
+  waveNumber: 1
   enemyCount: 0
 --- !u!4 &1032601809
 Transform:
