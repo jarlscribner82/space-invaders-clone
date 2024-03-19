@@ -10,6 +10,7 @@ TagManager:
   - Infantry
   - bullet-player
   - bullet-mob
+  - player shield
   layers:
   - Default
   - TransparentFX
