@@ -16,7 +16,7 @@ public class InfantryMobController : MobController
     }
 
     // boundary references
-    private int boundaryRange = 12;
+    private int boundaryRange = 9;
 
     protected override void Awake()
     {
@@ -34,8 +34,6 @@ public class InfantryMobController : MobController
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
-
         FollowPlayer();
     }
 
@@ -43,7 +41,7 @@ public class InfantryMobController : MobController
     void FollowPlayer()
     {
         // get the vector that points in the players direction
-        Vector3 getDirection = (playerController.transform.position - infantryRb.transform.position).normalized;
+        Vector3 getDirection = (playerController.playerRb.transform.position - infantryRb.transform.position).normalized;
 
         // move the enemy towards the player
         infantryRb.AddForce(getDirection * Speed, ForceMode.Impulse);

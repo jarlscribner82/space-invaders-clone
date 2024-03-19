@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RangedMobController : MobController
 {
+    // object reference for projectile
+    public GameObject projectilePrefab;
+
     // firing state
     private bool isFiring = true;
 

@@ -65,11 +65,12 @@ public class SpawnManager : MonoBehaviour
         }        
     }
 
+    // only works if full list. try taking out the first if statement. it may accomplish the reverse of the spawner
     // take all objects in full points and transfer them back to empty points then empty the full points list
     void ResetSupporterPoints()
     {
-        if (supporterFull)
-        {
+        //if (supporterFull)
+        //{
             foreach (Transform t in fullSupportSpawnPoints)
             {
                 emptySupportSpawnPoints.Add(t);                
@@ -77,7 +78,7 @@ public class SpawnManager : MonoBehaviour
             fullSupportSpawnPoints.Clear();
 
             supporterFull = false;
-        }      
+        //}      
     }
 
     // spawn a tank in a random tank spawn point as long there are empty points
@@ -107,16 +108,16 @@ public class SpawnManager : MonoBehaviour
     // take all objects in full points and transfer them back to empty points then empty the full points list
     void ResetTankPoints()
     {
-        if (tankFull)
-        {
+        //if (tankFull)
+        //{
             foreach (Transform t in fullTankSpawnPoints)
             {
                 emptyTankSpawnPoints.Add(t);
             }
             fullTankSpawnPoints.Clear();
 
-            tankFull = false;
-        }
+           tankFull = false;
+        //}
     }
 
     // spawn an infantry in a random infantry spawn point as long there are empty points
@@ -146,8 +147,8 @@ public class SpawnManager : MonoBehaviour
     // take all objects in full points and transfer them back to empty points then empty the full points list
     void ResetInfantryPoints()
     {
-        if (infantryFull)
-        {
+        //if (infantryFull)
+        //{
             foreach (Transform t in fullInfantrySpawnPoints)
             {
                 emptyInfantrySpawnPoints.Add(t);
@@ -155,7 +156,7 @@ public class SpawnManager : MonoBehaviour
             fullInfantrySpawnPoints.Clear();
 
             infantryFull = false;
-        }
+        //}
     }
 
     // spawn a ranged in a random ranged spawn point as long there are empty points
@@ -185,8 +186,8 @@ public class SpawnManager : MonoBehaviour
     // take all objects in full points and transfer them back to empty points then empty the full points list
     void ResetRangedPoints()
     {
-        if (rangedFull)
-        {
+        //if (rangedFull)
+        //{
             foreach (Transform t in fullRangedSpawnPoints)
             {
                 emptyRangedSpawnPoints.Add(t);
@@ -194,55 +195,73 @@ public class SpawnManager : MonoBehaviour
             fullRangedSpawnPoints.Clear();
 
             rangedFull = false;
-        }
+        //}
     }
 
+    // unsure a random nimber for type selection every call
     int MobChooser()
     {
         return Random.Range(1, 5);
     }
 
+    // spawn a random mob type only if there are empty spaces left
+    // works recursively until a suitable choice is made
     void ChooseMobType()
     {
-        int chooseMobType = MobChooser();
-
-        if (chooseMobType == 1)
+        if (infantryFull && rangedFull && supporterFull && tankFull)
         {
-            SpawnInfantry();
-
-            if (infantryFull)
-            {
-                MobChooser();
-            }
+            Debug.Log("VICTORY");
         }
-
-        if (chooseMobType == 2)
+        else
         {
-            SpawnSupporter();
+            int chooseMobType = MobChooser();
 
-            if (supporterFull)
+            if (chooseMobType == 1)
             {
-                MobChooser();
+                if (infantryFull)
+                {
+                    ChooseMobType();
+                }
+                else
+                {
+                    SpawnInfantry();
+                }
             }
-        }
 
-        if (chooseMobType == 3)
-        {
-            SpawnTank();
-
-            if (tankFull)
+            if (chooseMobType == 2)
             {
-                MobChooser();
+                if (supporterFull)
+                {
+                    ChooseMobType();
+                }
+                else
+                {
+                    SpawnSupporter();
+                }
             }
-        }
 
-        if (chooseMobType == 4)
-        {
-            SpawnRanged();
-
-            if (rangedFull)
+            if (chooseMobType == 3)
             {
-                MobChooser();
+                if (tankFull)
+                {
+                    ChooseMobType();
+                }
+                else
+                {
+                    SpawnTank();
+                }
+            }
+
+            if (chooseMobType == 4)
+            {
+                if (rangedFull)
+                {
+                    ChooseMobType();
+                }
+                else
+                {
+                    SpawnRanged();
+                }
             }
         }
     }

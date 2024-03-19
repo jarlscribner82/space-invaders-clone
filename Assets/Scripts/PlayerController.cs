@@ -8,7 +8,7 @@ using UnityEngine.Pool;
 public class PlayerController : MonoBehaviour
 {
     // access rigid body
-    private Rigidbody playerRb;
+    public Rigidbody playerRb;
 
     // player attributes
     public int playerStr;
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public bool isAlive = true;
 
     // boundary references
-    private int boundaryRange = 12;
+    private int boundaryRange = 9;
 
     // object reference for shield
     public GameObject shield;
