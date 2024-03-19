@@ -8,7 +8,7 @@ public class MobController : MonoBehaviour
     public PlayerController playerController;
 
     // spawn manager reference
-    private SpawnManager spawnManager;
+    protected SpawnManager spawnManager;
 
     // mob attributes
 

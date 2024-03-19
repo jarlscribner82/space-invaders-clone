@@ -44,7 +44,7 @@ public class SpawnManager : MonoBehaviour
     // abrtracted spawner for any mob type
     // parameters corrospond to to the references for each mob in the declarations at the top of the page
     // using outside of this script would require changing all refences to public and/or changing the manager to a sigleton so a it could be made static and accessed using an instance
-    void SpawnMob(GameObject mobType, List<Transform> emptySpawnPoints, List<Transform> fullSpawnPoints, bool pointsFull)
+    void SpawnMob(GameObject mobType, List<Transform> emptySpawnPoints, List<Transform> fullSpawnPoints, ref bool pointsFull)
     {
         if (emptySpawnPoints.Count > 0)
         {
@@ -57,17 +57,24 @@ public class SpawnManager : MonoBehaviour
                 fullSpawnPoints.Add(emptySpawnPoints[randomIndex]);
                 emptySpawnPoints.RemoveAt(randomIndex);
             }
+
+            if (emptySpawnPoints.Count <= 0)
+            {
+                pointsFull = true;
+            }
         }
     }
 
     // abstracted resetter for any mob type
-    void ResetSpawnPoints(List<Transform> emptySpawnPoints, List<Transform> fullSpawnPoints, bool pointsFull)
+    void ResetSpawnPoints(List<Transform> emptySpawnPoints, List<Transform> fullSpawnPoints, ref bool pointsFull)
     {
         foreach (Transform t in fullSpawnPoints)
         {
             emptySpawnPoints.Add(t);
         }
         fullSpawnPoints.Clear();
+
+        pointsFull = false;
     }
 
     // ensure a random number for type selection every call
@@ -97,11 +104,8 @@ public class SpawnManager : MonoBehaviour
                 }
                 else
                 {
-                    SpawnMob(infantry, emptyInfantrySpawnPoints, fullInfantrySpawnPoints, infantryFull);
-                    if (emptyInfantrySpawnPoints.Count <= 0)
-                    {
-                        infantryFull = true;
-                    }
+                    SpawnMob(infantry, emptyInfantrySpawnPoints, fullInfantrySpawnPoints, ref infantryFull);
+
                     enemyCount++;
                 }
             }
@@ -115,11 +119,8 @@ public class SpawnManager : MonoBehaviour
                 }
                 else
                 {
-                    SpawnMob(support, emptySupportSpawnPoints, fullSupportSpawnPoints, supporterFull);
-                    if (emptySupportSpawnPoints.Count <= 0)
-                    {
-                        supporterFull = true;
-                    }
+                    SpawnMob(support, emptySupportSpawnPoints, fullSupportSpawnPoints, ref supporterFull);
+
                     enemyCount++;
                 }
             }
@@ -134,11 +135,8 @@ public class SpawnManager : MonoBehaviour
                 }
                 else
                 {
-                    SpawnMob(tank, emptyTankSpawnPoints, fullTankSpawnPoints, tankFull);
-                    if (emptyTankSpawnPoints.Count <= 0)
-                    {
-                        tankFull = true;
-                    }
+                    SpawnMob(tank, emptyTankSpawnPoints, fullTankSpawnPoints, ref tankFull);
+
                     enemyCount++;
                 }
             }
@@ -152,11 +150,8 @@ public class SpawnManager : MonoBehaviour
                 }
                 else
                 {
-                    SpawnMob(ranged, emptyRangedSpawnPoints, fullRangedSpawnPoints, rangedFull);
-                    if (emptyRangedSpawnPoints.Count <= 0)
-                    {
-                        rangedFull = true;
-                    }
+                    SpawnMob(ranged, emptyRangedSpawnPoints, fullRangedSpawnPoints, ref rangedFull);
+
                     enemyCount++;
                 }
             }
@@ -168,17 +163,13 @@ public class SpawnManager : MonoBehaviour
     {
         if (enemyCount == 0)
         {
-            ResetSpawnPoints(emptyInfantrySpawnPoints, fullInfantrySpawnPoints, infantryFull);
-            infantryFull = false;
+            ResetSpawnPoints(emptyInfantrySpawnPoints, fullInfantrySpawnPoints, ref infantryFull);
 
-            ResetSpawnPoints(emptyTankSpawnPoints, fullTankSpawnPoints, tankFull);
-            tankFull = false;
+            ResetSpawnPoints(emptyTankSpawnPoints, fullTankSpawnPoints, ref tankFull);
 
-            ResetSpawnPoints(emptyRangedSpawnPoints, fullRangedSpawnPoints, rangedFull);
-            rangedFull = false;
+            ResetSpawnPoints(emptyRangedSpawnPoints, fullRangedSpawnPoints, ref rangedFull);
 
-            ResetSpawnPoints(emptySupportSpawnPoints, fullSupportSpawnPoints, supporterFull);
-            supporterFull = false;
+            ResetSpawnPoints(emptySupportSpawnPoints, fullSupportSpawnPoints, ref supporterFull);;
 
             for (int i = 0; i < waveNumber; i++)
             {

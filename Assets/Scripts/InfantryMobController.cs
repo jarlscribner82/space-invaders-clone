@@ -82,6 +82,7 @@ public class InfantryMobController : MobController
         if (collision.gameObject.CompareTag("Player"))
         {
             playerController.playerHealth -= MobDamage;
+            spawnManager.enemyCount--;
             Destroy(gameObject);
         }
     }
