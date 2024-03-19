@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+
+    public static SpawnManager instance { get; private set; }
+
     // supporter references
     [SerializeField] GameObject support;
     [SerializeField] List<Transform> emptySupportSpawnPoints = new List<Transform>();
@@ -32,6 +35,16 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int waveNumber = 1;
     public int enemyCount;
 
+    // singleton setup
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
     private void Start()
     {
         SpawnWave();

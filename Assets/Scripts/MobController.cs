@@ -7,9 +7,6 @@ public class MobController : MonoBehaviour
     // inspector reference
     public PlayerController playerController;
 
-    // spawn manager reference
-    protected SpawnManager spawnManager;
-
     // mob attributes
 
     // max health protected with backing field for easy initialization
@@ -43,9 +40,6 @@ public class MobController : MonoBehaviour
     {
         // allow access to player
         playerController = GameObject.Find("player").GetComponent<PlayerController>();
-
-        // allow access to spawn manager
-        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
     }
     protected virtual void Start()
     {
@@ -75,7 +69,7 @@ public class MobController : MonoBehaviour
         if (mobHealth < 1)
         {
             Destroy(gameObject);
-            spawnManager.enemyCount --;
+            SpawnManager.instance.enemyCount--;
         }
     }
 

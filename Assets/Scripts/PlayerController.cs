@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     // object reference for shield
     public GameObject shield;
 
-    private bool isShielding = false;
+    public bool isShielding = false;
 
     // object reference for projectile
     public GameObject projectilePrefab;

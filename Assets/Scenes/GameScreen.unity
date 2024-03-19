@@ -473,6 +473,7 @@ MonoBehaviour:
   playerMaxHealth: 0
   isAlive: 1
   shield: {fileID: 678073341}
+  isShielding: 0
   projectilePrefab: {fileID: 4448431672313546594, guid: acfe08b5034c3a64db6c457503922d9d, type: 3}
   projectileSpawnPoint: {fileID: 1720532520}
 --- !u!54 &344389466

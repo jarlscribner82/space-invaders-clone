@@ -33,8 +33,7 @@ public class BulletMobPooler : MonoBehaviour
             GameObject obj = (GameObject)Instantiate(objectToPool);
             obj.SetActive(false);
             pooledObjects.Add(obj);
-            //obj.transform.SetParent(this.transform); // set as children of Spawn Manager
-            obj.GetComponent<Rigidbody>().transform.SetParent(this.transform); // set as children of Spawn Manager
+            obj.GetComponent<Rigidbody>().transform.SetParent(this.transform);
         }
     }
 

@@ -82,7 +82,7 @@ public class InfantryMobController : MobController
         if (collision.gameObject.CompareTag("Player") )
         {
             playerController.playerHealth -= MobDamage;
-            spawnManager.enemyCount--;
+            SpawnManager.instance.enemyCount--;
             Destroy(gameObject);
         }
         
@@ -90,7 +90,7 @@ public class InfantryMobController : MobController
         if (collision.gameObject.CompareTag("player shield"))
         {
             playerController.playerHealth -= MobDamage;
-            spawnManager.enemyCount--;
+            SpawnManager.instance.enemyCount -- ;
             Destroy(gameObject);
         }
     }

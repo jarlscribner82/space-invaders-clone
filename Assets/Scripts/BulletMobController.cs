@@ -28,23 +28,14 @@ public class BulletMobController : BulletController
         }
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    // damage the player on bullet contact and destroy bullet
-    //    if (other.gameObject.CompareTag("Player") || gameObject.CompareTag("Player"))
-    //    {
-    //        other.gameObject.GetComponent<PlayerController>().playerHealth -= ranged.GetComponent<RangedMobController>().MobDamage;
-    //        fired = false;
-    //        gameObject.SetActive(false);
-    //    }
-    //}
-
     private void OnCollisionEnter(Collision collision)
     {
+        var player = collision.gameObject.GetComponent <PlayerController>();
+
         // damage the player on bullet contact and destroy bullet
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !player.isShielding)
         {
-            collision.gameObject.GetComponent<PlayerController>().playerHealth -= ranged.GetComponent<RangedMobController>().MobDamage;
+            player.playerHealth -= ranged.GetComponent<RangedMobController>().MobDamage;
             fired = false;
             gameObject.SetActive(false);
         }
