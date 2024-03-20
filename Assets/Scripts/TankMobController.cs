@@ -10,11 +10,30 @@ public class TankMobController : MobController
     // shield state
     [SerializeField] bool shieldActive = true;
 
+    // allow access to spawn manager
+    private SpawnManager spawnManager;
+
+    // reference to summonable mob
+    [SerializeField] GameObject mobSummon;
+
+    // spawner state
+    [SerializeField] bool isSpawning = false;
+
+    // spawner offset
+    [SerializeField] float spawnOffset = 1.0f;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+    }
     protected override void Start()
     {
         base.Start();
 
         StartCoroutine(ToggleShieldState());
+        StartCoroutine(ToggleSpawnState());
     }
 
     protected override void Update()
@@ -22,6 +41,7 @@ public class TankMobController : MobController
         base.Update();
 
         ToggleShieldActive();
+        SummonInfantry();
     }
 
     // turn shield object on or off depending on state
@@ -62,6 +82,26 @@ public class TankMobController : MobController
         if (mobHealth > MaxHealth)
         {
             mobHealth = MaxHealth;
+        }
+    }
+
+    // toggle the state of the spawner
+    IEnumerator ToggleSpawnState()
+    {
+        while (true)
+        {
+            yield return new WaitForSecondsRealtime(ShieldCooldown());
+            isSpawning = !isSpawning;
+        }
+    }
+
+    // summon an infantry unit above the tank if isSpawning state is true and reset for another summon
+    void SummonInfantry()
+    {
+        if (isSpawning)
+        {
+            spawnManager.SpawnMob(mobSummon, gameObject.transform.position.x, gameObject.transform.position.y + spawnOffset, gameObject.transform.position.z, gameObject.transform.rotation );
+            isSpawning = false;
         }
     }
 }

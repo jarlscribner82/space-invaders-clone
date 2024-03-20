@@ -232,6 +232,8 @@ MonoBehaviour:
   isSupported: 0
   shield: {fileID: 695123567}
   shieldActive: 1
+  mobSummon: {fileID: 7650568900042109665, guid: c45c07982fff7d743b9fabd4cc065dd3, type: 3}
+  isSpawning: 0
 --- !u!54 &349918338
 Rigidbody:
   m_ObjectHideFlags: 0

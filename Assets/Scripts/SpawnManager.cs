@@ -54,9 +54,18 @@ public class SpawnManager : MonoBehaviour
         SpawnWave();
     }
 
+    // overloaded spawn method to allow mobs to "summon" more mobs
+    // parameters are for the object to be spawned, x,y, and z coordinates and rotation (the necceasary parameters for Instantiate)
+    public void SpawnMob (GameObject mobType, float xPos, float yPos, float zPos, Quaternion rotation)
+    {
+
+        Instantiate(mobType, new Vector3(xPos, yPos, zPos), rotation);
+
+        enemyCount++;
+    }
+
     // abrtracted spawner for any mob type
     // parameters corrospond to to the references for each mob in the declarations at the top of the page
-    // using outside of this script would require changing all refences to public and/or changing the manager to a sigleton so a it could be made static and accessed using an instance
     void SpawnMob(GameObject mobType, List<Transform> emptySpawnPoints, List<Transform> fullSpawnPoints, ref bool pointsFull)
     {
         if (emptySpawnPoints.Count > 0)
@@ -75,6 +84,8 @@ public class SpawnManager : MonoBehaviour
             {
                 pointsFull = true;
             }
+
+            enemyCount++;
         }
     }
 
@@ -96,6 +107,7 @@ public class SpawnManager : MonoBehaviour
         return Random.Range(1, 5);
     }
 
+    // sets winninng conditions and proceeds if they aren't met
     // spawn a random mob type only if there are empty spaces left
     // works recursively until a suitable choice is made
     void ChooseMobType()
@@ -103,6 +115,7 @@ public class SpawnManager : MonoBehaviour
         if (infantryFull && rangedFull && supporterFull && tankFull)
         {
             Debug.Log("VICTORY");
+            Time.timeScale = 0;
         }
         else
         {
@@ -118,8 +131,6 @@ public class SpawnManager : MonoBehaviour
                 else
                 {
                     SpawnMob(infantry, emptyInfantrySpawnPoints, fullInfantrySpawnPoints, ref infantryFull);
-
-                    enemyCount++;
                 }
             }
 
@@ -133,8 +144,6 @@ public class SpawnManager : MonoBehaviour
                 else
                 {
                     SpawnMob(support, emptySupportSpawnPoints, fullSupportSpawnPoints, ref supporterFull);
-
-                    enemyCount++;
                 }
             }
 
@@ -149,8 +158,6 @@ public class SpawnManager : MonoBehaviour
                 else
                 {
                     SpawnMob(tank, emptyTankSpawnPoints, fullTankSpawnPoints, ref tankFull);
-
-                    enemyCount++;
                 }
             }
 
@@ -164,8 +171,6 @@ public class SpawnManager : MonoBehaviour
                 else
                 {
                     SpawnMob(ranged, emptyRangedSpawnPoints, fullRangedSpawnPoints, ref rangedFull);
-
-                    enemyCount++;
                 }
             }
         }

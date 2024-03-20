@@ -18,7 +18,7 @@ public class ShieldPlayer : MonoBehaviour
         if (other.gameObject.CompareTag("Infantry"))
         {
             Destroy(other.gameObject);
-            SpawnManager.instance.enemyCount--;
+            SpawnManager.instance.enemyCount--;            
         }
     }
 }

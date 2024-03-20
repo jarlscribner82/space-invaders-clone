@@ -81,16 +81,8 @@ public class InfantryMobController : MobController
         // destroy infantry instance on player contact, unawared
         if (collision.gameObject.CompareTag("Player") )
         {
-            playerController.playerHealth -= MobDamage;
+            DealDamage();
             SpawnManager.instance.enemyCount--;
-            Destroy(gameObject);
-        }
-        
-        //  destroy infantry instance on player shield contact, rewarded
-        if (collision.gameObject.CompareTag("player shield"))
-        {
-            playerController.playerHealth -= MobDamage;
-            SpawnManager.instance.enemyCount -- ;
             Destroy(gameObject);
         }
     }
