@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3791466303288802058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8913496991023448222}
+  - component: {fileID: 8897642697390495496}
+  m_Layer: 0
+  m_Name: defense sensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8913496991023448222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791466303288802058}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7650568900042109669}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &8897642697390495496
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791466303288802058}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7650568900042109665
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,7 +77,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8913496991023448222}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -119,6 +165,16 @@ MonoBehaviour:
   cooldownMax: 4
   cooldownEnabled: 0
   isSupported: 0
+  posts:
+  - {fileID: 5205985253717139400, guid: bb6b73cd782c856468d786574ad07505, type: 3}
+  - {fileID: 2358834206256462088, guid: 0deed655e1192c14294ddbb9b63096f7, type: 3}
+  - {fileID: 1491240197933009429, guid: 0b63299b093950d47b68066002812449, type: 3}
+  - {fileID: 6974567179795100543, guid: c63e4337de03cd948b38ed39336d1571, type: 3}
+  - {fileID: 4349718704870051191, guid: 0d53e89ee7a698c45babb0e838660342, type: 3}
+  - {fileID: 1870392197060747133, guid: 24e61273692f6ba4c95cdf85ca33d9dd, type: 3}
+  - {fileID: 6242230437213202172, guid: de5f89483f48e0e4484218bbd5188319, type: 3}
+  - {fileID: 13357337577516154, guid: 0a931d4773c9b884582c532178f5f676, type: 3}
+  - {fileID: 2953595799680403072, guid: ba6ff7cb6e217a34c9b4b6e3855c30ed, type: 3}
   m_Speed: 0.75
 --- !u!54 &2502363136192618550
 Rigidbody:
