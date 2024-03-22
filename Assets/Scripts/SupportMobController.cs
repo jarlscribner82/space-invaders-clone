@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SupportMobController : MobController
 {
+    // movement reference
+    private Movement mover;
+
+    // allow access to rigid body
+    private Rigidbody supporterRb;
+
     // support state
     public bool isSupporting = false;
 
@@ -21,6 +28,10 @@ public class SupportMobController : MobController
     protected override void Awake()
     {
         base.Awake();
+
+        supporterRb = GetComponent<Rigidbody>();
+        mover = GameObject.Find("Mover").GetComponent<Movement>();
+
         SetBounds();
     }
 
@@ -31,29 +42,27 @@ public class SupportMobController : MobController
         StartCoroutine(ToggleSupportState());
     }
 
-    protected override void Update()
+    protected virtual void FixedUpdate()
     {
-        base.Update();
-
         Move();
     }
 
     // set movement boundaries according to prefab spawn position
     void SetBounds()
     {
-        leftBounds = transform.position.x - moveRange;
-        rightBounds = transform.position.x + moveRange;
+        leftBounds = supporterRb.transform.position.x - moveRange;
+        rightBounds = supporterRb.transform.position.x + moveRange;
     }
 
     // change direction when boundaries are breached
     void KeepInBounds()
     {
-        if (transform.position.x < leftBounds)
+        if (supporterRb.transform.position.x <= leftBounds)
         {
             movingLeft = false;
             movingRight = true;
         }
-        if (transform.position.x > rightBounds)
+        if (supporterRb.transform.position.x >= rightBounds)
         { 
             movingRight = false;
             movingLeft = true;
@@ -65,11 +74,11 @@ public class SupportMobController : MobController
     {
         if (movingLeft)
         {
-            transform.position -= new Vector3(speed, 0, 0);
+            mover.MoveTo(leftBounds, supporterRb.transform.position.y, supporterRb.transform.position.z, supporterRb, speed);
         }
         if (movingRight)
         {
-            transform.position += new Vector3(speed, 0, 0);
+            mover.MoveTo(rightBounds, supporterRb.transform.position.y, supporterRb.transform.position.z, supporterRb, speed);
         }
         KeepInBounds();
     }

@@ -179,7 +179,7 @@ MonoBehaviour:
   cooldownEnabled: 0
   isSupported: 0
   isSupporting: 0
-  speed: 0.01
+  speed: 0.5
   moveRange: 0.75
 --- !u!54 &-2599913804969717869
 Rigidbody:

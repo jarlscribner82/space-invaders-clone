@@ -52,6 +52,10 @@ public class SpawnManager : MonoBehaviour
     private void Update()
     {
         SpawnWave();
+        //if (Input.GetButtonDown("Fire3"))
+        //{
+        //    SpawnMob(support, 0, 0, -5, gameObject.transform.rotation);
+        //}
     }
 
     // overloaded spawn method to allow mobs to "summon" more mobs
@@ -112,7 +116,7 @@ public class SpawnManager : MonoBehaviour
     // works recursively until a suitable choice is made
     void ChooseMobType()
     {
-        if (infantryFull && rangedFull && supporterFull && tankFull)
+        if (infantryFull && rangedFull && supporterFull && tankFull && waveNumber > 53)
         {
             Debug.Log("VICTORY");
             Time.timeScale = 0;

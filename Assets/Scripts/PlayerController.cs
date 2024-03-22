@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     // access rigid body
     public Rigidbody playerRb;
 
+    // Movement reference
+    private Movement mover;
+
     // player attributes
     public int playerStr;
     public int playerSpd;
@@ -36,6 +39,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
+        mover = GameObject.Find("Mover").GetComponent<Movement>();
     }
 
     // Update is called once per frame
@@ -71,21 +75,21 @@ public class PlayerController : MonoBehaviour
             playerRb.velocity = playerRb.velocity.normalized * playerSpd;
         }
 
-        KeepInBounds();
+        mover.KeepInBounds(playerRb, boundaryRange);
     }
 
-    // keep the player in bounds
-    void KeepInBounds()
-    {
-        if (playerRb.transform.position.x <= -boundaryRange)
-        {
-            playerRb.transform.position = new Vector3(-boundaryRange, playerRb.transform.position.y, playerRb.transform.position.z);
-        }
-        if (playerRb.transform.position.x >= boundaryRange)
-        {
-            playerRb.transform.position = new Vector3(boundaryRange, playerRb.transform.position.y, playerRb.transform.position.z);
-        }
-    }
+    //// keep the player in bounds
+    //void KeepInBounds()
+    //{
+    //    if (playerRb.transform.position.x <= -boundaryRange)
+    //    {
+    //        playerRb.transform.position = new Vector3(-boundaryRange, playerRb.transform.position.y, playerRb.transform.position.z);
+    //    }
+    //    if (playerRb.transform.position.x >= boundaryRange)
+    //    {
+    //        playerRb.transform.position = new Vector3(boundaryRange, playerRb.transform.position.y, playerRb.transform.position.z);
+    //    }
+    //}
 
     // fire a projectile. creates an instance of an object, places it at the players position, points it in the direction of the copied object
     // firing prohibited if shield is active
@@ -124,6 +128,15 @@ public class PlayerController : MonoBehaviour
         {
             isShielding = false;
             shield.SetActive(false);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("bullet-mob") && isShielding)
+        {
+            collision.gameObject.GetComponent<BulletMobController>().fired = false;
+            collision.gameObject.SetActive(false);
         }
     }
 }

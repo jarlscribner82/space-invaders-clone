@@ -66,7 +66,7 @@ public class MobController : MonoBehaviour
     {
         mobHealth -= playerController.playerStr;
 
-        if (mobHealth < 1)
+        if (mobHealth == 0)
         {
             Destroy(gameObject);
             SpawnManager.instance.enemyCount--;
@@ -86,9 +86,25 @@ public class MobController : MonoBehaviour
         // if bullet hits mob, set bullet to false to repool and reet duration bool, finally damage the monster
         if (collision.gameObject.CompareTag("bullet-player"))
         {
+            
             collision.gameObject.GetComponent<BulletPlayerController>().fired = false;
             collision.gameObject.SetActive(false);
             TakeDamage();
         }
+
+        // destroy infantry instance on player contact, unawared
+        if (collision.gameObject.CompareTag("Player") && !playerController.isShielding)
+        {
+            DealDamage();
+            Destroy(gameObject);
+            SpawnManager.instance.enemyCount--;            
+        } 
+        
+        if (collision.gameObject.CompareTag("Player") && playerController.isShielding)
+        {
+            Destroy(gameObject);
+            SpawnManager.instance.enemyCount--;
+        }
     }
+        
 }

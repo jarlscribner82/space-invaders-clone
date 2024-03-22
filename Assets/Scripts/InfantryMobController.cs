@@ -8,6 +8,9 @@ public class InfantryMobController : MobController
     // player reference
     private PlayerController player;
 
+    // movement reference
+    private Movement mover;
+
     // allow access to rigid body
     private Rigidbody infantryRb;
 
@@ -31,13 +34,14 @@ public class InfantryMobController : MobController
 
     protected override void Awake()
     {
-        base.Awake();
-
+        base.Awake();       
+        
         // allow access to rigid body
         infantryRb = GetComponent<Rigidbody>();
 
         post = AssignPost();
 
+        mover = GameObject.Find("Mover").GetComponent<Movement>();
         player = GameObject.Find("player").GetComponent<PlayerController>();
     }
 
@@ -57,49 +61,14 @@ public class InfantryMobController : MobController
     {
         if (offensive)
         {
-            MovetTo(player.playerRb);
+            mover.MovetTo(player.playerRb, infantryRb, Speed);
         }
         else
         {
-            MovetTo(post);
+            mover.MoveTo(post, infantryRb, Speed);
             StartCoroutine(Cooldown());
         }
-    }
-
-    // enable enemy track and follow for player
-    void MovetTo(Rigidbody target)
-    { 
-        // get the vector that points in the players direction
-        Vector3 getDirection = (target.transform.position - infantryRb.transform.position).normalized;
-
-        // move the enemy towards the player
-        infantryRb.AddForce(getDirection * Speed, ForceMode.Impulse);
-
-        // set a max speed
-        if (infantryRb.velocity.magnitude > Speed)
-        {
-            infantryRb.velocity = infantryRb.velocity.normalized * Speed;
-        }
-
-        KeepInBounds();
-    }
-
-    // enable enemy to seek a specific location
-    void MovetTo(Transform target)
-    {
-        // get the vector that points in the players direction
-        Vector3 getDirection = (target.transform.position - infantryRb.transform.position).normalized;
-
-        // move the enemy towards the player
-        infantryRb.AddForce(getDirection * Speed, ForceMode.Impulse);
-
-        // set a max speed
-        if (infantryRb.velocity.magnitude > Speed)
-        {
-            infantryRb.velocity = infantryRb.velocity.normalized * Speed;
-        }
-
-        KeepInBounds();
+        mover.KeepInBounds(infantryRb, boundaryRange);
     }
 
     // assign a random defensive post for unit to flee to when defensive
@@ -110,19 +79,6 @@ public class InfantryMobController : MobController
         post = posts[postNumber];
 
         return post;
-    }
-
-    // keep the mpob in the game field
-    void KeepInBounds()
-    {
-        if (infantryRb.transform.position.x <= -boundaryRange)
-        {
-            infantryRb.transform.position = new Vector3(-boundaryRange, infantryRb.transform.position.y, infantryRb.transform.position.z);
-        }
-        if (infantryRb.transform.position.x >= boundaryRange)
-        {
-            infantryRb.transform.position = new Vector3(boundaryRange, infantryRb.transform.position.y, infantryRb.transform.position.z);
-        }
     }
 
     // action cooldown timer
@@ -138,20 +94,7 @@ public class InfantryMobController : MobController
         Speed += 0.1f;
     }
 
-    protected override void OnCollisionEnter(Collision collision)
-    {
-        base.OnCollisionEnter(collision);
-
-        // destroy infantry instance on player contact, unawared
-        if (collision.gameObject.CompareTag("Player") )
-        {
-            DealDamage();
-            SpawnManager.instance.enemyCount--;
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         // change to defense mode when in range of the shielded player
         if (other.gameObject.CompareTag("Player") && player.isShielding)
