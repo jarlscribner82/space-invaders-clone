@@ -6,7 +6,7 @@ using UnityEngine;
 public class SupportMobController : MobController
 {
     // movement reference
-    private Movement mover;
+    //private Movement mover;
 
     // allow access to rigid body
     private Rigidbody supporterRb;
@@ -30,7 +30,7 @@ public class SupportMobController : MobController
         base.Awake();
 
         supporterRb = GetComponent<Rigidbody>();
-        mover = GameObject.Find("Mover").GetComponent<Movement>();
+        //mover = GameObject.Find("Mover").GetComponent<Movement>();
 
         SetBounds();
     }
@@ -74,11 +74,11 @@ public class SupportMobController : MobController
     {
         if (movingLeft)
         {
-            mover.MoveTo(leftBounds, supporterRb.transform.position.y, supporterRb.transform.position.z, supporterRb, speed);
+            Movement.MoveTo(leftBounds, supporterRb.transform.position.y, supporterRb.transform.position.z, supporterRb, speed);
         }
         if (movingRight)
         {
-            mover.MoveTo(rightBounds, supporterRb.transform.position.y, supporterRb.transform.position.z, supporterRb, speed);
+            Movement.MoveTo(rightBounds, supporterRb.transform.position.y, supporterRb.transform.position.z, supporterRb, speed);
         }
         KeepInBounds();
     }

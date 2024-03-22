@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody playerRb;
 
     // Movement reference
-    private Movement mover;
+    //private Movement mover;
 
     // player attributes
     public int playerStr;
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
-        mover = GameObject.Find("Mover").GetComponent<Movement>();
+        //mover = GameObject.Find("Mover").GetComponent<Movement>();
     }
 
     // Update is called once per frame
@@ -75,21 +75,8 @@ public class PlayerController : MonoBehaviour
             playerRb.velocity = playerRb.velocity.normalized * playerSpd;
         }
 
-        mover.KeepInBounds(playerRb, boundaryRange);
+        Movement.KeepInBounds(playerRb, boundaryRange);
     }
-
-    //// keep the player in bounds
-    //void KeepInBounds()
-    //{
-    //    if (playerRb.transform.position.x <= -boundaryRange)
-    //    {
-    //        playerRb.transform.position = new Vector3(-boundaryRange, playerRb.transform.position.y, playerRb.transform.position.z);
-    //    }
-    //    if (playerRb.transform.position.x >= boundaryRange)
-    //    {
-    //        playerRb.transform.position = new Vector3(boundaryRange, playerRb.transform.position.y, playerRb.transform.position.z);
-    //    }
-    //}
 
     // fire a projectile. creates an instance of an object, places it at the players position, points it in the direction of the copied object
     // firing prohibited if shield is active

@@ -8,9 +8,6 @@ public class InfantryMobController : MobController
     // player reference
     private PlayerController player;
 
-    // movement reference
-    private Movement mover;
-
     // allow access to rigid body
     private Rigidbody infantryRb;
 
@@ -41,7 +38,6 @@ public class InfantryMobController : MobController
 
         post = AssignPost();
 
-        mover = GameObject.Find("Mover").GetComponent<Movement>();
         player = GameObject.Find("player").GetComponent<PlayerController>();
     }
 
@@ -61,14 +57,14 @@ public class InfantryMobController : MobController
     {
         if (offensive)
         {
-            mover.MovetTo(player.playerRb, infantryRb, Speed);
+            Movement.MovetTo(player.playerRb, infantryRb, Speed);
         }
         else
         {
-            mover.MoveTo(post, infantryRb, Speed);
+            Movement.MoveTo(post, infantryRb, Speed);
             StartCoroutine(Cooldown());
         }
-        mover.KeepInBounds(infantryRb, boundaryRange);
+        Movement.KeepInBounds(infantryRb, boundaryRange);
     }
 
     // assign a random defensive post for unit to flee to when defensive

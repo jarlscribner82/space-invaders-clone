@@ -60,7 +60,7 @@ public class RangedMobController : MobController
         return Random.Range(cooldownMin, cooldownMax);
     }
 
-    // raise damage, stackable with no limit
+    // raise attack speed, limited to on shot persecond
     public virtual void RaiseFiringSpeed()
     {
         cooldownMax -= 1;

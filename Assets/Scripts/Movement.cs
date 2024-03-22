@@ -2,23 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
-{
-    public static Movement instance { get; private set; }
-
-    // singleton setup
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-    }
-
+public static class Movement
+{ 
     // enable rigid body to track and follow another rigid body
-    public void MovetTo(Rigidbody target, Rigidbody origin, float speed)
+    public static void MovetTo(Rigidbody target, Rigidbody origin, float speed)
     {
         // get the vector that points in the targets direction
         Vector3 getDirection = (target.transform.position - origin.transform.position).normalized;
@@ -34,7 +21,7 @@ public class Movement : MonoBehaviour
     }
 
     // enable rigid body to seek a specific transform
-    public void MoveTo(Transform target, Rigidbody origin, float speed)
+    public static void MoveTo(Transform target, Rigidbody origin, float speed)
     {
         // get the vector that points in the locations direction
         Vector3 getDirection = (target.transform.position - origin.transform.position).normalized;
@@ -50,7 +37,7 @@ public class Movement : MonoBehaviour
     }
 
     // enable rigid body to seek a specific location
-    public void MoveTo(float xPos, float yPos, float zPos, Rigidbody origin, float speed)
+    public static void MoveTo(float xPos, float yPos, float zPos, Rigidbody origin, float speed)
     {
         Vector3 target = new Vector3(xPos, yPos, zPos);
 
@@ -68,7 +55,7 @@ public class Movement : MonoBehaviour
     }
 
     // keep the rigid body in the confines of a specific x range
-    public void KeepInBounds(Rigidbody rb, float boundaryRange)
+    public static void KeepInBounds(Rigidbody rb, float boundaryRange)
     {
         if (rb.transform.position.x <= -boundaryRange)
         {
@@ -81,7 +68,7 @@ public class Movement : MonoBehaviour
     }
 
     // keep the rigid body in the confines of a specific x and y range
-    public void KeepInBounds(Rigidbody rb, float xBoundaryRange, float yBoundaryRange)
+    public static void KeepInBounds(Rigidbody rb, float xBoundaryRange, float yBoundaryRange)
     {
         // x
         if (rb.transform.position.x <= -xBoundaryRange)
