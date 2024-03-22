@@ -59,11 +59,11 @@ public class PlayerController : MonoBehaviour
         // enable horizontal motion with left stick
         if (horMove > 0)
         {
-            playerRb.AddForce(Vector3.right * playerSpd * horMove, ForceMode.VelocityChange);
+            playerRb.AddForce(horMove * playerSpd * Vector3.right, ForceMode.VelocityChange);
         }
         else if (horMove < 0)
         {
-            playerRb.AddForce(Vector3.left * playerSpd * -horMove, ForceMode.VelocityChange);
+            playerRb.AddForce(-horMove * playerSpd * Vector3.left, ForceMode.VelocityChange);
         }
         else if (horMove == 0)
         {

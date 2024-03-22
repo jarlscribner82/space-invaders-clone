@@ -33,8 +33,11 @@ public class MobController : MonoBehaviour
     public int cooldownMax;
 
     // support state
-    public bool cooldownEnabled = false;
+    public bool supportCooldownEnabled = false;
     public bool isSupported = false;
+
+    // action state
+    protected bool actionEnabled = false;
 
     protected virtual void Awake()
     {
@@ -44,14 +47,31 @@ public class MobController : MonoBehaviour
     protected virtual void Start()
     {
         mobHealth = MaxHealth;
+        StartCoroutine(ActionInterval());
     }
 
     protected virtual void Update()
     {
-        if (isSupported && !cooldownEnabled)
+        SupportEnabler();
+    }
+
+    // enables mob to recieve support buffs once per trigger and starts a cooldown before allowing another buff to be recieved
+    protected virtual void SupportEnabler()
+    {
+        if (isSupported && !supportCooldownEnabled)
         {
-            cooldownEnabled = true;
+            supportCooldownEnabled = true;
             StartCoroutine(SupporterCooldown());
+        }
+    }
+
+    // action state toggler
+    protected virtual IEnumerator ActionInterval()
+    {
+        while (true)
+        {
+            yield return new WaitForSecondsRealtime(Random.Range(cooldownMin, cooldownMax));
+            actionEnabled = !actionEnabled;
         }
     }
 
@@ -61,7 +81,7 @@ public class MobController : MonoBehaviour
         playerController.playerHealth -= MobDamage;
     }
 
-    // mob takes damage equalt to player strength destroys mob if less than 1 health
+    // mob takes damage equal to player strength, destroys mob if less than 1 health
     protected virtual void TakeDamage()
     {
         mobHealth -= playerController.playerStr;
@@ -69,7 +89,7 @@ public class MobController : MonoBehaviour
         if (mobHealth == 0)
         {
             Destroy(gameObject);
-            SpawnManager.instance.enemyCount--;
+            SpawnManager.Instance.enemyCount--;
         }
     }
 
@@ -77,7 +97,7 @@ public class MobController : MonoBehaviour
     public virtual IEnumerator SupporterCooldown()
     {
             yield return new WaitForSecondsRealtime(cooldownMax);
-            cooldownEnabled = false;
+            supportCooldownEnabled = false;
             isSupported = false;
     }
 
@@ -92,18 +112,19 @@ public class MobController : MonoBehaviour
             TakeDamage();
         }
 
-        // destroy infantry instance on player contact, unawared
+        //  deal damage to playerdestroy infantry instance on contact, unawarded
         if (collision.gameObject.CompareTag("Player") && !playerController.isShielding)
         {
             DealDamage();
             Destroy(gameObject);
-            SpawnManager.instance.enemyCount--;            
+            SpawnManager.Instance.enemyCount--;            
         } 
         
+        // destroy mob on contact with player if it is shielding
         if (collision.gameObject.CompareTag("Player") && playerController.isShielding)
         {
             Destroy(gameObject);
-            SpawnManager.instance.enemyCount--;
+            SpawnManager.Instance.enemyCount--;
         }
     }
         

@@ -30,7 +30,6 @@ public class SupportMobController : MobController
         base.Awake();
 
         supporterRb = GetComponent<Rigidbody>();
-        //mover = GameObject.Find("Mover").GetComponent<Movement>();
 
         SetBounds();
     }
@@ -88,14 +87,8 @@ public class SupportMobController : MobController
     {
         while (true)
         {
-            yield return new WaitForSecondsRealtime(SupportCooldown());
+            yield return new WaitForSecondsRealtime(Random.Range(cooldownMin, cooldownMax));
             isSupporting = !isSupporting;
         }
-    }
-
-    // generate a random cooldown time for shield
-    int SupportCooldown()
-    {
-        return Random.Range(cooldownMin, cooldownMax);
     }
 }

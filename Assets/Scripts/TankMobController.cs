@@ -7,9 +7,6 @@ public class TankMobController : MobController
     // shield reference
     [SerializeField] GameObject shield;
 
-    // shield state
-    [SerializeField] bool shieldActive = true;
-
     // allow access to spawn manager
     private SpawnManager spawnManager;
 
@@ -32,7 +29,6 @@ public class TankMobController : MobController
     {
         base.Start();
 
-        StartCoroutine(ToggleShieldState());
         StartCoroutine(ToggleSpawnState());
     }
 
@@ -47,7 +43,7 @@ public class TankMobController : MobController
     // turn shield object on or off depending on state
     void ToggleShieldActive()
     {
-        if (shieldActive)
+        if (actionEnabled)
         {
             shield.SetActive(true);
         }
@@ -56,23 +52,6 @@ public class TankMobController : MobController
             shield.SetActive(false);
         }
     }
-
-    // shield state togller
-    IEnumerator ToggleShieldState()
-    {
-        while (true)
-        {
-            yield return new WaitForSecondsRealtime(ShieldCooldown());
-            shieldActive = !shieldActive;
-        }
-    }
-
-    // generate a random cooldown time for shield
-    int ShieldCooldown()
-    {
-        return Random.Range(cooldownMin, cooldownMax);
-    }
-
 
     // raise health, limited to MaxHealth
     public virtual void RaiseHealth()
@@ -90,7 +69,7 @@ public class TankMobController : MobController
     {
         while (true)
         {
-            yield return new WaitForSecondsRealtime(ShieldCooldown());
+            yield return new WaitForSecondsRealtime(Random.Range(cooldownMin, cooldownMax));
             isSpawning = !isSpawning;
         }
     }

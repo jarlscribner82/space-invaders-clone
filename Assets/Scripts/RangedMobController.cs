@@ -7,16 +7,6 @@ public class RangedMobController : MobController
     // object reference for projectile
     public GameObject projectilePrefab;
 
-    // firing state
-    private bool isFiring = true;
-
-    protected override void Start()
-    {
-        base.Start();
-
-        StartCoroutine(FireInterval());
-    }
-
     // Update is called once per frame
     protected override void Update()
     {
@@ -32,9 +22,9 @@ public class RangedMobController : MobController
         GameObject pooledProjectile = BulletMobPooler.SharedInstance.GetPooledObject();
 
         // if pooled projectile is inactive
-        if (pooledProjectile != null && !isFiring)
+        if (pooledProjectile != null && !actionEnabled)
         {
-            isFiring = true;
+            actionEnabled = true;
 
             // activate it
             pooledProjectile.SetActive(true);
@@ -42,22 +32,6 @@ public class RangedMobController : MobController
             // set position and rotation
             pooledProjectile.transform.SetPositionAndRotation(transform.position, transform.rotation);
         }
-    }
-
-    // firing state toggler
-    IEnumerator FireInterval()
-    {
-        while (true)
-        {
-            yield return new WaitForSecondsRealtime(Cooldown());
-            isFiring = !isFiring;
-        }
-    }
-
-    // generate a random cooldown time for firing
-    int Cooldown()
-    {
-        return Random.Range(cooldownMin, cooldownMax);
     }
 
     // raise attack speed, limited to on shot persecond

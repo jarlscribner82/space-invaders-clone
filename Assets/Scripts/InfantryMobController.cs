@@ -41,14 +41,11 @@ public class InfantryMobController : MobController
         player = GameObject.Find("player").GetComponent<PlayerController>();
     }
 
-    protected override void Start()
-    {
-        base.Start();
-    }
-
     // Update is called once per frame
     protected override void Update()
     {
+        base.Update();
+
         MoveWithAI();
     }
 
@@ -90,7 +87,7 @@ public class InfantryMobController : MobController
         Speed += 0.1f;
     }
 
-    protected virtual void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         // change to defense mode when in range of the shielded player
         if (other.gameObject.CompareTag("Player") && player.isShielding)

@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
 
-    public static SpawnManager instance { get; private set; }
+    public static SpawnManager Instance { get; private set; }
 
     // supporter references
     [SerializeField] GameObject support;
@@ -38,12 +38,12 @@ public class SpawnManager : MonoBehaviour
     // singleton setup
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
     }
     private void Start()
     {
