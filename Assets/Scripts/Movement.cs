@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class Movement
 { 
+    // POLYMORPHISM - overloaded methods
+
     // enable rigid body to track and follow another rigid body
     public static void MovetTo(Rigidbody target, Rigidbody origin, float speed)
     {
@@ -53,6 +55,8 @@ public static class Movement
             origin.velocity = origin.velocity.normalized * speed;
         }
     }
+
+    // POLYMORPHISM - overloaded methods
 
     // keep the rigid body in the confines of a specific x range
     public static void KeepInBounds(Rigidbody rb, float boundaryRange)

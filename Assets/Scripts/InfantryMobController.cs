@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+// INHERITANCE - child class
 public class InfantryMobController : MobController
 {
     // player reference
@@ -17,7 +18,8 @@ public class InfantryMobController : MobController
     // post references
     [SerializeField] Transform[] posts;
     private Transform post;
-    
+
+    // ENCAPSULATION - allows modifaction while preserving original value
     // attributes unique to an infantry mob
     [SerializeField] float m_Speed;
     public float Speed
@@ -46,6 +48,7 @@ public class InfantryMobController : MobController
     {
         base.Update();
 
+        // ABSTRACTION
         MoveWithAI();
     }
 
@@ -54,6 +57,7 @@ public class InfantryMobController : MobController
     {
         if (offensive && !SpawnManager.Instance.gameOver)
         {
+            // ABSTRACTION - code called from another script
             Movement.MovetTo(player.playerRb, infantryRb, Speed);
         }
         else

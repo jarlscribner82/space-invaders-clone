@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// INHERITANCE - parent class
 public class BulletController : MonoBehaviour
 {
     // bullet attribute
@@ -12,6 +13,7 @@ public class BulletController : MonoBehaviour
 
     protected virtual void Update()
     {
+        // ABSTRACTION
         StartDeactivation();
     }
 

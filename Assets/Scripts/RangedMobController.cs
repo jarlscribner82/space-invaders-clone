@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// INHERITANCE - child class
 public class RangedMobController : MobController
 {
     // object reference for projectile
@@ -19,6 +20,7 @@ public class RangedMobController : MobController
     {
         base .Update();
 
+        // ABSTRACTION
         Fire();
     }
 

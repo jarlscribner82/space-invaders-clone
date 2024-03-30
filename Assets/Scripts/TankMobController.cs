@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TreeEditor;
 using UnityEngine;
 
+// INHERITANCE - child class
 public class TankMobController : MobController
 {
     // shield reference
@@ -34,6 +35,7 @@ public class TankMobController : MobController
     {
         base.Update();
 
+        // ABSTRACTION
         ToggleShieldActive();
         SummonInfantry();
     }

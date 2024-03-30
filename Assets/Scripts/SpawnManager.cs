@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    // ENCAPSULATION
     public static SpawnManager Instance { get; private set; }
 
     // supporter references
@@ -56,6 +57,7 @@ public class SpawnManager : MonoBehaviour
 
     private void Update()
     {
+        // ABSTRACTION
         SpawnWave();  
     }
 

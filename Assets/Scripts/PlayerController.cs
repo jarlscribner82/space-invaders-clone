@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // ABSTRACTION
         PlayerMove();
         FireProjectile();
         ActivateShield();
@@ -76,6 +77,7 @@ public class PlayerController : MonoBehaviour
             playerRb.velocity = playerRb.velocity.normalized * playerSpd;
         }
 
+        // ABSTRACTON - code hidden in another script
         Movement.KeepInBounds(playerRb, boundaryRange);
     }
 

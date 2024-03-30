@@ -17,16 +17,19 @@ public class SupportFieldController : MonoBehaviour
         if (other.gameObject.CompareTag("Tank") && !tank.isSupported && supporter.isSupporting)
         {           
             tank.isSupported = true;
+            // ABSTRACTION - code in another script
             tank.RaiseHealth();
         }
         if (other.gameObject.CompareTag("Ranged") && !ranged.isSupported && supporter.isSupporting)
         {                      
             ranged.isSupported = true;
+            // ABSTRACTION - code in another script
             ranged.RaiseFiringSpeed();
         }
         if (other.gameObject.CompareTag("Infantry") && !infantry.isSupported && supporter.isSupporting)
         {
             infantry.isSupported = true;
+            // ABSTRACTION - code in another script
             infantry.RaiseSpeed();
         }
     }    

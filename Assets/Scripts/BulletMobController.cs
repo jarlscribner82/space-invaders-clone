@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// INHERITANCE - child class 
 public class BulletMobController : BulletController
 {
     // access ranged mob
@@ -15,7 +16,8 @@ public class BulletMobController : BulletController
     }
     private void FixedUpdate()
     {
-    MoveBullet();
+        // ABSTRACTION
+        MoveBullet();
     }
 
     // move object down and ensure a constant velocity    

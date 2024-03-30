@@ -12,6 +12,8 @@ public class MobController : MonoBehaviour
 
     protected bool dead = false;
 
+    // ENCAPSULATION - allows modifaction while preserving original value
+
     // max health protected with backing field for easy initialization
     [SerializeField] int m_MaxHealth;
     public int MaxHealth 
@@ -22,7 +24,8 @@ public class MobController : MonoBehaviour
 
     // mob health place holder
     public int mobHealth;
-    
+
+    // ENCAPSULATION - allows modifaction while preserving original value
 
     // damage protected with a backing field for easy initialization
     [SerializeField] int m_MobDamage;
@@ -57,6 +60,7 @@ public class MobController : MonoBehaviour
 
     protected virtual void Update()
     {
+        // ABSTRACTION
         SupportEnabler();
     }
 
@@ -80,6 +84,7 @@ public class MobController : MonoBehaviour
         }
     }
 
+    // ensure random cooldown period each call
     protected virtual int ActionCooldown()
     {
         return Random.Range(cooldownMin, cooldownMax);

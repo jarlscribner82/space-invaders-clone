@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// INHERITANCE - cjhild class
 public class SupportMobController : MobController
 {
     // movement reference
@@ -45,6 +46,7 @@ public class SupportMobController : MobController
 
     protected virtual void FixedUpdate()
     {
+        // ABSTRACTION
         Move();
     }
 
