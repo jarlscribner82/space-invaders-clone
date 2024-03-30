@@ -1,11 +1,12 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-
     public static SpawnManager Instance { get; private set; }
 
     // supporter references
@@ -32,8 +33,15 @@ public class SpawnManager : MonoBehaviour
     private List<Transform> fullRangedSpawnPoints = new List<Transform>();
     private bool rangedFull = false;
 
+    //  wave varibles
+    private bool isSpawning = false;
+
     [SerializeField] private int waveNumber = 1;
-    public int enemyCount;
+    public static int enemyCount;
+
+    [SerializeField] TextMeshProUGUI enemies;
+
+    public bool gameOver = false;
 
     // singleton setup
     private void Awake()
@@ -45,30 +53,12 @@ public class SpawnManager : MonoBehaviour
         }
         Instance = this;
     }
-    private void Start()
-    {
-        SpawnWave();
-    }
+
     private void Update()
     {
-        SpawnWave();
-        //if (Input.GetButtonDown("Fire3"))
-        //{
-        //    SpawnMob(support, 0, 0, -5, gameObject.transform.rotation);
-        //}
+        SpawnWave();  
     }
 
-    // overloaded spawn method to allow mobs to "summon" more mobs
-    // parameters are for the object to be spawned, x,y, and z coordinates and rotation (the necceasary parameters for Instantiate)
-    public void SpawnMob (GameObject mobType, float xPos, float yPos, float zPos, Quaternion rotation)
-    {
-
-        Instantiate(mobType, new Vector3(xPos, yPos, zPos), rotation);
-
-        enemyCount++;
-    }
-
-    // abrtracted spawner for any mob type
     // parameters corrospond to to the references for each mob in the declarations at the top of the page
     void SpawnMob(GameObject mobType, List<Transform> emptySpawnPoints, List<Transform> fullSpawnPoints, ref bool pointsFull)
     {
@@ -89,7 +79,7 @@ public class SpawnManager : MonoBehaviour
                 pointsFull = true;
             }
 
-            enemyCount++;
+            IncrementEnemyCount();
         }
     }
 
@@ -116,10 +106,12 @@ public class SpawnManager : MonoBehaviour
     // works recursively until a suitable choice is made
     void ChooseMobType()
     {
-        if (infantryFull && rangedFull && supporterFull && tankFull && waveNumber > 53)
+        if (infantryFull && rangedFull && supporterFull && tankFull && !gameOver)
         {
-            Debug.Log("VICTORY");
+            gameOver = true;
             Time.timeScale = 0;
+
+            Debug.Log("VICTORY");
         }
         else
         {
@@ -183,7 +175,17 @@ public class SpawnManager : MonoBehaviour
     // spawn a wave of mobs
     void SpawnWave()
     {
-        if (enemyCount == 0)
+        if (enemyCount == 0 && !isSpawning)
+        {
+            isSpawning = true;
+            StartCoroutine(DelaySpawn());
+        }
+    }
+
+    // reset the empty position lists, pause, spawn the wave, increase the wave number, reset isSpawning to false for future call
+    IEnumerator DelaySpawn()
+    {
+        if (isSpawning)
         {
             ResetSpawnPoints(emptyInfantrySpawnPoints, fullInfantrySpawnPoints, ref infantryFull);
 
@@ -191,7 +193,9 @@ public class SpawnManager : MonoBehaviour
 
             ResetSpawnPoints(emptyRangedSpawnPoints, fullRangedSpawnPoints, ref rangedFull);
 
-            ResetSpawnPoints(emptySupportSpawnPoints, fullSupportSpawnPoints, ref supporterFull);;
+            ResetSpawnPoints(emptySupportSpawnPoints, fullSupportSpawnPoints, ref supporterFull); ;
+
+            yield return new WaitForSecondsRealtime(1);
 
             for (int i = 0; i < waveNumber; i++)
             {
@@ -199,6 +203,23 @@ public class SpawnManager : MonoBehaviour
             }
 
             waveNumber++;
+
+            isSpawning = false;
+
+            yield return new WaitForSecondsRealtime(1);
         }
+        
+    }
+
+    public static void DecerimentEnemyCount()
+    {
+        enemyCount--;
+        Instance.enemies.text = enemyCount.ToString();
+    }
+
+    public static void IncrementEnemyCount()
+    {
+        enemyCount++;
+        Instance.enemies.text = enemyCount.ToString();
     }
 }

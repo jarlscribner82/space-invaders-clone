@@ -67,6 +67,20 @@ public static class Movement
         }
     }
 
+
+    // keep the rigid body in the confines of a specific x range with 2 different ints
+    public static void KeepInBounds(Rigidbody rb, float leftBoundary, int rightBoundary)
+    {
+        if (rb.transform.position.x <= leftBoundary)
+        {
+            rb.transform.position = new Vector3(leftBoundary, rb.transform.position.y, rb.transform.position.z);
+        }
+        if (rb.transform.position.x >= rightBoundary)
+        {
+            rb.transform.position = new Vector3(rightBoundary, rb.transform.position.y, rb.transform.position.z);
+        }
+    }
+
     // keep the rigid body in the confines of a specific x and y range
     public static void KeepInBounds(Rigidbody rb, float xBoundaryRange, float yBoundaryRange)
     {

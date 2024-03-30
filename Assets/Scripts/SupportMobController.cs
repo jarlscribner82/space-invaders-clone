@@ -11,6 +11,8 @@ public class SupportMobController : MobController
     // allow access to rigid body
     private Rigidbody supporterRb;
 
+    [SerializeField] GameObject supportField;
+
     // support state
     public bool isSupporting = false;
 
@@ -54,6 +56,7 @@ public class SupportMobController : MobController
     }
 
     // change direction when boundaries are breached
+    // not using Movement script because movingLeft and moving right determine which x pos to pass when choosing a new target to move too
     void KeepInBounds()
     {
         if (supporterRb.transform.position.x <= leftBounds)
@@ -85,10 +88,20 @@ public class SupportMobController : MobController
     // support state toggler
     IEnumerator ToggleSupportState()
     {
-        while (true)
+        while (true && !SpawnManager.Instance.gameOver)
         {
             yield return new WaitForSecondsRealtime(Random.Range(cooldownMin, cooldownMax));
             isSupporting = !isSupporting;
+
+            if (isSupporting)
+            { 
+                supportField.SetActive(true); 
+            }
+            else
+            {
+                supportField.SetActive(false);
+            }
+
         }
     }
 }

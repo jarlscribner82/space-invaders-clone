@@ -7,6 +7,13 @@ public class RangedMobController : MobController
     // object reference for projectile
     public GameObject projectilePrefab;
 
+    protected override void Awake()
+    {
+        actionEnabled = true;
+
+        base.Awake();        
+    }
+
     // Update is called once per frame
     protected override void Update()
     {

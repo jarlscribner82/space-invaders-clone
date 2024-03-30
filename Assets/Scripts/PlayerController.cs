@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     // access rigid body
     public Rigidbody playerRb;
 
+    [SerializeField] RangedMobController ranged;
+
     // Movement reference
     //private Movement mover;
 
@@ -39,7 +41,6 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
-        //mover = GameObject.Find("Mover").GetComponent<Movement>();
     }
 
     // Update is called once per frame
@@ -120,10 +121,22 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // handle bullet collision while shieldng
         if (collision.gameObject.CompareTag("bullet-mob") && isShielding)
         {
             collision.gameObject.GetComponent<BulletMobController>().fired = false;
             collision.gameObject.SetActive(false);
         }
+
+
+        // handle bullet collision whie not shielding
+        if (collision.gameObject.CompareTag("bullet-mob") && !isShielding)
+        {
+            collision.gameObject.GetComponent<BulletMobController>().fired = false;
+            playerHealth -= ranged.MobDamage;
+            collision.gameObject.SetActive(false);
+        }
     }
+
+
 }

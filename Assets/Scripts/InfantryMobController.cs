@@ -52,7 +52,7 @@ public class InfantryMobController : MobController
     // infantry movement with simple AI determining offensive or defensive movement
     void MoveWithAI()
     {
-        if (offensive)
+        if (offensive && !SpawnManager.Instance.gameOver)
         {
             Movement.MovetTo(player.playerRb, infantryRb, Speed);
         }
@@ -87,7 +87,7 @@ public class InfantryMobController : MobController
         Speed += 0.1f;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         // change to defense mode when in range of the shielded player
         if (other.gameObject.CompareTag("Player") && player.isShielding)

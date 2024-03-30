@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
 public class TankMobController : MobController
@@ -13,18 +14,15 @@ public class TankMobController : MobController
     // reference to summonable mob
     [SerializeField] GameObject mobSummon;
 
+    [SerializeField] int spawnCooldownMin;
+    [SerializeField] int spawnCooldownMax;
+
     // spawner state
     [SerializeField] bool isSpawning = false;
 
     // spawner offset
     [SerializeField] float spawnOffset = 1.0f;
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
-    }
     protected override void Start()
     {
         base.Start();
@@ -43,7 +41,7 @@ public class TankMobController : MobController
     // turn shield object on or off depending on state
     void ToggleShieldActive()
     {
-        if (actionEnabled)
+        if (actionEnabled && !SpawnManager.Instance.gameOver)
         {
             shield.SetActive(true);
         }
@@ -67,9 +65,9 @@ public class TankMobController : MobController
     // toggle the state of the spawner
     IEnumerator ToggleSpawnState()
     {
-        while (true)
+        while (true && !SpawnManager.Instance.gameOver)
         {
-            yield return new WaitForSecondsRealtime(Random.Range(cooldownMin, cooldownMax));
+            yield return new WaitForSecondsRealtime(Random.Range(spawnCooldownMin, spawnCooldownMax));
             isSpawning = !isSpawning;
         }
     }
@@ -77,10 +75,21 @@ public class TankMobController : MobController
     // summon an infantry unit above the tank if isSpawning state is true and reset for another summon
     void SummonInfantry()
     {
-        if (isSpawning)
+        if (isSpawning && !SpawnManager.Instance.gameOver)
         {
-            spawnManager.SpawnMob(mobSummon, gameObject.transform.position.x, gameObject.transform.position.y + spawnOffset, gameObject.transform.position.z, gameObject.transform.rotation );
+            Instantiate(mobSummon, new Vector3(transform.position.x, transform.position.y + spawnOffset, transform.position.z), transform.rotation);
             isSpawning = false;
+            SpawnManager.IncrementEnemyCount();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // mob shield blocks player bullet
+        if (other.gameObject.CompareTag("bullet-player"))
+        {
+            other.gameObject.GetComponent<BulletPlayerController>().fired = false;
+            other.gameObject.SetActive(false);
         }
     }
 }

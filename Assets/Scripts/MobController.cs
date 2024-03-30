@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MobController : MonoBehaviour
@@ -8,6 +9,8 @@ public class MobController : MonoBehaviour
     public PlayerController playerController;
 
     // mob attributes
+
+    protected bool dead = false;
 
     // max health protected with backing field for easy initialization
     [SerializeField] int m_MaxHealth;
@@ -20,6 +23,7 @@ public class MobController : MonoBehaviour
     // mob health place holder
     public int mobHealth;
     
+
     // damage protected with a backing field for easy initialization
     [SerializeField] int m_MobDamage;
     public int MobDamage
@@ -46,6 +50,7 @@ public class MobController : MonoBehaviour
     }
     protected virtual void Start()
     {
+        dead = false;
         mobHealth = MaxHealth;
         StartCoroutine(ActionInterval());
     }
@@ -58,7 +63,7 @@ public class MobController : MonoBehaviour
     // enables mob to recieve support buffs once per trigger and starts a cooldown before allowing another buff to be recieved
     protected virtual void SupportEnabler()
     {
-        if (isSupported && !supportCooldownEnabled)
+        if (isSupported && !supportCooldownEnabled && !SpawnManager.Instance.gameOver)
         {
             supportCooldownEnabled = true;
             StartCoroutine(SupporterCooldown());
@@ -68,11 +73,16 @@ public class MobController : MonoBehaviour
     // action state toggler
     protected virtual IEnumerator ActionInterval()
     {
-        while (true)
+        while (true && !SpawnManager.Instance.gameOver)
         {
-            yield return new WaitForSecondsRealtime(Random.Range(cooldownMin, cooldownMax));
+            yield return new WaitForSeconds(ActionCooldown());
             actionEnabled = !actionEnabled;
         }
+    }
+
+    protected virtual int ActionCooldown()
+    {
+        return Random.Range(cooldownMin, cooldownMax);
     }
 
     // deal damage to player
@@ -81,17 +91,6 @@ public class MobController : MonoBehaviour
         playerController.playerHealth -= MobDamage;
     }
 
-    // mob takes damage equal to player strength, destroys mob if less than 1 health
-    protected virtual void TakeDamage()
-    {
-        mobHealth -= playerController.playerStr;
-
-        if (mobHealth == 0)
-        {
-            Destroy(gameObject);
-            SpawnManager.Instance.enemyCount--;
-        }
-    }
 
     // state toggler for recieving support
     public virtual IEnumerator SupporterCooldown()
@@ -101,30 +100,45 @@ public class MobController : MonoBehaviour
             isSupported = false;
     }
 
+
+    // mob takes damage equal to player strength, destroys mob if less than 1 health
+    protected virtual void TakeDamage()
+    {
+        mobHealth -= playerController.playerStr;
+
+        if (mobHealth <= 0)
+        {
+            Destroy(gameObject);
+            SpawnManager.DecerimentEnemyCount();
+            dead = true;
+        }
+    }
+
     protected virtual void OnCollisionEnter(Collision collision)
     {
         // if bullet hits mob, set bullet to false to repool and reet duration bool, finally damage the monster
-        if (collision.gameObject.CompareTag("bullet-player"))
-        {
-            
+        if (collision.gameObject.CompareTag("bullet-player") && !dead)
+        {            
             collision.gameObject.GetComponent<BulletPlayerController>().fired = false;
             collision.gameObject.SetActive(false);
             TakeDamage();
         }
 
         //  deal damage to playerdestroy infantry instance on contact, unawarded
-        if (collision.gameObject.CompareTag("Player") && !playerController.isShielding)
+        if (collision.gameObject.CompareTag("Player") && !dead && !playerController.isShielding)
         {
             DealDamage();
             Destroy(gameObject);
-            SpawnManager.Instance.enemyCount--;            
+            SpawnManager.DecerimentEnemyCount();
+            dead = true;
         } 
         
         // destroy mob on contact with player if it is shielding
-        if (collision.gameObject.CompareTag("Player") && playerController.isShielding)
+        if (collision.gameObject.CompareTag("Player") && !dead && playerController.isShielding)
         {
             Destroy(gameObject);
-            SpawnManager.Instance.enemyCount--;
+            SpawnManager.DecerimentEnemyCount();
+            dead = true;
         }
     }
         
